@@ -23,24 +23,21 @@ public class DigiKey {
             WebDriver driveChrome = new ChromeDriver();
             driveChrome.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             driveChrome.get("https://www.digikey.com/products/en/integrated-circuits-ics/logic-buffers-drivers-receivers-transceivers/704?FV=ffe002c0&quantity=&ColumnSort=0&page=1&k=74LVT16245BDL&pageSize=25");
-//            WebDriverWait d = new WebDriverWait(driveChrome,20);
             // read javan data
-            System.out.println("start");
             FileInputStream fis = new FileInputStream("partName.json");
             ObjectInputStream ois = new ObjectInputStream(fis);
             List<String> partName = (List<String>) ois.readObject();
             ois.close();
             // not founded parts
-              //ArrayList<String> notFoundedPartName = new ArrayList<String>();
-              String[] notFoundedPartName = new String[partName.size()];
+            String[] notFoundedPartName = new String[partName.size()];
             int notFoundedCounter = 0;
             // make AllParts
-             String[][] AllParts = new String[partName.size()*10][];
+            String[][] AllParts = new String[partName.size()*10][];
+            String[] ImageCaption = new String[partName.size()*10];
             // List<List<String>> AllParts = new ArrayList<List<String>>();
             int foundedCounter = 0;
             System.out.println("partName size : "+ partName.size());
             for (int i = 0; i < partName.size(); i++) {
-                //System.out.println("partName :" + partName.get(i));
                 // id = pagelayout_0_content_2__searchText
                 driveChrome.findElement(By.xpath("//*[@id=\"_idOfSearchbarPleaseIgnore\"]/div[2]/div[3]/input")).sendKeys(partName.get(i));
                 // id = pagelayout_0_content_2__searchImg
@@ -67,7 +64,9 @@ public class DigiKey {
                         foundedCounter++;
                       //  System.out.println("foundedCounter : "+foundedCounter);
                     }
-                    this.downloadImages(driveChrome);
+                    DigiKey useDownloadImages = new DigiKey();
+                    useDownloadImages.downloadImages(driveChrome);
+                    useDownloadImages.downloadDataSheet(driveChrome);
                 } else {
                     notFoundedPartName[notFoundedCounter] = partName.get(i);
                     //notFoundedPartName.add(notFoundedCounter,partName.get(i));
@@ -95,19 +94,41 @@ public class DigiKey {
             System.err.print(e.getMessage());
         }
     }
+
+    public void downloadDataSheet(WebDriver driveChrome) {
+        List<WebElement> dataSheets = driveChrome.findElements(By.className("datasheet-img"));
+        System.out.println("dataSheets.size() : "+dataSheets.size());
+        try {
+            for (int j = 0; j < dataSheets.size(); j++) {
+                dataSheets.get(j).click();
+                Thread.sleep(1000L);
+            }
+        } catch (InterruptedException e) {
+
+        }
+    }
+
     public void downloadImages(WebDriver driveChrome) {
         // download image
         List<WebElement> imageTable = driveChrome.findElements(By.className("pszoomer"));
         System.out.println("imageTable.size() : "+imageTable.size());
         for (int j = 0; j < imageTable.size(); j++) {
-            WebElement logo = imageTable.get(j);
-            String logoSRC = logo.getAttribute("src");
-            System.out.println("logoSRC : "+logoSRC);
+            WebElement image = imageTable.get(j);
+            String smallImage = image.getAttribute("src");
+            String bigImage = image.getAttribute("zoomimg");
+//            System.out.println("bigImage : "+bigImage);
+            try {
+                URL smallImageURL = new URL(smallImage);
+                BufferedImage saveSmallImage = ImageIO.read(smallImageURL);
+                ImageIO.write(saveSmallImage, "jpg", new File("smallImage"+j+".jpg"));
 
-            URL imageURL = new URL(logoSRC);
-            BufferedImage saveImage = ImageIO.read(imageURL);
-//
-//                        ImageIO.write(saveImage, "png", new File(tableColumn.get(4).getText()+".png"));
+//                URL bigImageURL = new URL(bigImage);
+//                BufferedImage saveBigImage = ImageIO.read(bigImageURL);
+//                ImageIO.write(saveBigImage, "jpg", new File("bigImage"+j+".jpg"));
+            } catch (IOException e) {
+
+            }
+
         }
     }
 }
