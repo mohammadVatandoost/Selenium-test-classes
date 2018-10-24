@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class findAllTag {
     public static void main(String[] args) {
-        System.setProperty("webdriver.chrome.driver", "E://Tutorial//Selenium//chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", GlobalData.CHROME_DRIVER);
         try {
             WebDriver driveChrome = new ChromeDriver();
             driveChrome.manage().window().maximize();
