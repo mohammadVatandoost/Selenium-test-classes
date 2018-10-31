@@ -29,7 +29,7 @@ public class DigiKeyDownloadFile {
           ois.close();
           int counter = 0;
           System.out.println("partNameFile length"+partNameFile.length);
-          for(int i=1565;i<partNameFile.length;i++){
+          for(int i=7075;i<partNameFile.length;i++){
               System.out.println("name "+i+" : "+partNameFile[i][4]);
               if(partNameFile[i][1] != null) {
                   System.out.println("image "+i+" : "+partNameFile[i][1]);
