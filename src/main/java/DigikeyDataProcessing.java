@@ -12,38 +12,59 @@ public class DigikeyDataProcessing {
         String[][] firstAllParts = getFileData(GlobalData.FIRST_SEARCH_FOUNDED);
         String[][] allParts = concat2DArray(firstAllParts,thirdAllParts);
         System.out.println("allParts.length : " + allParts.length);
-        try {
-          // store All IC Part
-          FileOutputStream partNameFile = new FileOutputStream("AllICParts.json");
-          ObjectOutputStream oos = new ObjectOutputStream(partNameFile);
-          oos.writeObject(allParts);
-          oos.close();
-        } catch (Exception e) {
-            System.err.print(e.getMessage());
-        }
+//        try {
+//          // store All IC Part
+//          FileOutputStream partNameFile = new FileOutputStream("AllICParts.json");
+//          ObjectOutputStream oos = new ObjectOutputStream(partNameFile);
+//          oos.writeObject(allParts);
+//          oos.close();
+//        } catch (Exception e) {
+//            System.err.print(e.getMessage());
+//        }
+        test(allParts);
         Set<String> allPartsCategorySet = sortCategory(allParts);
         System.out.println("allPartsCategorySet.size() : " + allPartsCategorySet.size());
         String[] allPartsCategory = allPartsCategorySet.toArray(new String[allPartsCategorySet.size()]);
         System.out.println("allPartsCategory.length : " + allPartsCategory.length);
         Arrays.sort(allPartsCategory);
+        storeCategoryToCSV(allPartsCategory);
         CategoryInfo[] categoryInfo = new CategoryInfo[allPartsCategory.length];
         for(int i=0;i<allPartsCategory.length;i++) {
-//            System.out.println("allPartsCategory "+ i + " : "+ allPartsCategory[i]);
+            System.out.println("allPartsCategory "+ i + " : "+ allPartsCategory[i]);
             categoryInfo[i] = checkCategory(allPartsCategory[i]);
 //new CategoryInfo();
 //            categoryInfo[i].firstCategory = allPartsCategory[i];
         }
+
+        int counter2 = 0;
         for(int i=0;i<allParts.length;i++) {
+            int flag = 0 ;String categoryTemp = "";
             for(int j =0;j<categoryInfo.length;j++) {
-                if(allParts[i][0].equals(categoryInfo[j].firstCategory)) {
+                if( checkEqualityCategories(allParts[i][0],categoryInfo[j])) {
                     categoryInfo[j].addProduct(allParts[i]);
+                    flag++;
+                    if(flag ==1 ){categoryTemp = categoryInfo[j].firstCategory+" * "+categoryInfo[j].secondCategory+" * "+categoryInfo[j].thirdCategory;}
+                    if(flag == 2) {
+                        System.out.println("two category : "+allParts[i][4]);
+                        System.out.println(allParts[i][0]);
+                        System.out.println(categoryTemp);
+                        System.out.println(categoryInfo[j].firstCategory+" * "+categoryInfo[j].secondCategory+" * "+categoryInfo[j].thirdCategory);
+                    }
                 }
             }
+            if(flag == 0) {counter2++;
+            System.out.println("Not Found : "+allParts[i][4]);System.out.println("category : "+allParts[i][0]);
+            }
         }
-
+        System.out.println("*************counter2 : "+counter2);
+        findProductCategory("TPS73633DBVT",categoryInfo);
+        int counter = 0;
         for(int i =0;i<categoryInfo.length;i++) {
-            System.out.println("categoryInfo "+ i + " : "+ categoryInfo[i].firstCategory + " , "+ categoryInfo[i].secondCategory + " , "+ categoryInfo[i].thirdCategory + " , " + categoryInfo[i].counter + " , " + categoryInfo[i].productList.size());
+            System.out.println("categoryInfo "+ i + " : "+ categoryInfo[i].firstCategory + " * "+ categoryInfo[i].secondCategory + " * "
+                    + categoryInfo[i].thirdCategory + " * " + categoryInfo[i].counter + " * " + categoryInfo[i].productList.size());
+            counter = counter + categoryInfo[i].productList.size();
         }
+        System.out.println("counter : "+counter);
 //        Set<String> thirdSearchCategory = sortCategory(thirdAllParts);
 //        Set<String> secondSearchCategory = sortCategory(firstAllParts);
 //        System.out.println("secondSearch");
@@ -238,13 +259,13 @@ public class DigikeyDataProcessing {
 
         } else if(category.contains("Power Supplies - External/Internal (Off_-Board)")) {
             categoryInfo.firstCategory = "Power Supplies - External/Internal (Off-Board)";
-            category = category.replace("Power Supplies - External/Internal (Off_-Board)_,","");
+            category = category.replace("Power Supplies - External/Internal (Off_-Board)_","");
             categoryInfo.secondCategory = category;
 
         } else if(category.contains("RF/IF and RFID")) {
             categoryInfo.firstCategory = "RF/IF and RFID";
             category = category.replace("RF/IF and RFID","");
-            if(category.contains("RF ")) {
+            if(category.contains("RF ") && (!category.contains("RF Access"))) {
                 categoryInfo.secondCategory = "RF";
                 category = category.replace("RF ", "");
                 categoryInfo.thirdCategory = category;
@@ -265,9 +286,9 @@ public class DigikeyDataProcessing {
                 category = category.replace("Optical Sensors -  ", "");
                 categoryInfo.thirdCategory = category;
             } else if(category.contains("Temperature Sensors")) {
-                categoryInfo.firstCategory = "Temperature Sensors";
+                categoryInfo.secondCategory = "Temperature Sensors";
                 category = category.replace("Temperature Sensors - ","");
-                categoryInfo.secondCategory = category;
+                categoryInfo.thirdCategory = category;
 
             } else {
                 categoryInfo.secondCategory = category;
@@ -352,6 +373,7 @@ public class DigikeyDataProcessing {
         temp = temp.replace("RFIDRF","RFID RF ");
         temp = temp.replace("(ICs)_","(ICs)");
         temp = temp.replace("(ICs)","(ICs) ");
+        temp = temp.replace("RF  ","RF ");
         return temp;
     }
 
@@ -421,5 +443,91 @@ public class DigikeyDataProcessing {
         System.out.println("dataCounter :"+dataCounter);
         System.out.println("nullDataCounter :"+nullDataCounter);
         return AllParts;
+    }
+
+    static void test(String[][] parts) {
+        ArrayList<String> list = new ArrayList<String>();
+        for(int i=0;i<parts.length;i++) {
+            if(parts[i] != null) {
+                if (parts[i][0] != null) {
+//                    System.out.println("parts " + i + " : " + parts[i][0]);
+                    list.add(parts[i][0]);
+                    if("RF/IF and RFID RFID, RF Access, Monitoring ICs".equals(parts[i][0])) {
+                        System.out.println("parts " + i + " 3: " + parts[i][3]);System.out.println("parts " + i + " 4: " + parts[i][4]);
+                    }
+                } else {
+//                    System.out.println("parts j is null");
+                }
+            } else {
+//                System.out.println("parts is null");
+            }
+        }
+        Set<String> set = new LinkedHashSet<String>(list);
+        String[] temp = set.toArray(new String[set.size()]);
+        Arrays.sort(temp);
+        System.out.println("Test ");
+        for(int i=0;i<temp.length;i++) {
+            System.out.println("category "+i + " : " + temp[i]);
+        }
+    }
+
+    static void findProductCategory(String temp, CategoryInfo[] categoryInfo) {
+        System.out.println("************** findProductCategory *************");
+        for(int j =0;j<categoryInfo.length;j++) {
+            for(int i=0 ; i < categoryInfo[j].productList.size() ; i++ ){
+                if (categoryInfo[j].productList.get(i).get(3).equals(temp) || categoryInfo[j].productList.get(i).get(4).equals(temp)) {
+                    System.out.println("find categoryInfo of " + temp + " : " + categoryInfo[j].firstCategory + " , " + categoryInfo[j].secondCategory + " , "
+                            + categoryInfo[j].thirdCategory);
+                } else {
+//                    System.out.println(j+" , "+i+ " : "+categoryInfo[j].productList.get(i).get(3));
+                }
+            }
+        }
+    }
+
+    static void storeProductsToCSV(CategoryInfo temp) {
+        try {
+          PrintWriter pw = new PrintWriter(new File(GlobalData.CSV_RESULT+temp.firstCategory+"_"+temp.secondCategory
+                +"_"+temp.thirdCategory+".csv"));
+            StringBuilder sb = new StringBuilder();
+        } catch (Exception e) {
+            System.err.print(e.getMessage());
+        }
+    }
+
+    static void storeCategoryToCSV(String[] temp) {
+        try {
+            PrintWriter pw = new PrintWriter(new File(GlobalData.CSV_RESULT+"Categories.csv"));
+            StringBuilder sb = new StringBuilder();
+            for (int i=0;i<temp.length;i++) {
+                sb.append(temp[i]);
+                sb.append('\n');
+            }
+            pw.write(sb.toString());
+            pw.close();
+        } catch (Exception e) {
+            System.err.print(e.getMessage());
+        }
+    }
+
+    static String removeMultipleCharFromString(String temp, int first, int second) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < first; i++) {
+            sb.append(temp.charAt(i));
+        }
+        for (int i = second; i < temp.length(); i++) {
+            sb.append(temp.charAt(i));
+        }
+        return sb.toString();
+    }
+
+    static boolean checkEqualityCategories(String temp, CategoryInfo categoryInfo) {
+        String removeFirstCategory = removeMultipleCharFromString(temp,0,categoryInfo.firstCategory.length());
+//        String removeSecondCategory = removeMultipleCharFromString(removeFirstCategory,0,5);
+        return (
+                temp.contains(categoryInfo.firstCategory) &&
+                        removeFirstCategory.contains(categoryInfo.secondCategory) && removeFirstCategory.contains(categoryInfo.thirdCategory) &&
+                        (temp.length() - (categoryInfo.firstCategory+" "+categoryInfo.secondCategory+" "+categoryInfo.thirdCategory).length()) < 5
+                );
     }
 }

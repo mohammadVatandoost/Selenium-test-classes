@@ -28,28 +28,39 @@ public class DigiKeyDownloadFile {
           String[][] partNameFile = (String[][]) ois.readObject();
           ois.close();
           int counter = 0;
-          System.out.println("partNameFile length"+partNameFile.length);
-          for(int i=7075;i<partNameFile.length;i++){
-              System.out.println("name "+i+" : "+partNameFile[i][4]);
+          System.out.println("partNameFile length"+partNameFile.length);//12723
+          // for test
+//          for(int j=0;j<partNameFile[13897].length;j++) {
+//              System.out.println(j+" : "+partNameFile[13897][j]);
+//          }
+          for(int i=10061;i<12723;i++){
+              String name = partNameFile[i][4];
+              if(partNameFile[i][4].contains("Manufacturer")) {
+                  name = partNameFile[i][3];
+
+              System.out.println("name "+i+" : "+name);
               if(partNameFile[i][1] != null) {
                   System.out.println("image "+i+" : "+partNameFile[i][1]);
-                  downloadImages(partNameFile[i][1],partNameFile[i][4]);
+                  downloadImages(partNameFile[i][1],name);
               }
-              if(partNameFile[i][2] != null) {
+              if(partNameFile[i][2] != null  && !partNameFile[i][2].contains("http://www.cypress.com/")) {
                   System.out.println("dataSheet " + i + " : " + partNameFile[i][2]);
 //              downloadUsingHTTP(partNameFile[i][1],partNameFile[i][3]);
                   try {
-                      FileUtils.copyURLToFile(new URL(partNameFile[i][2]), new File(partNameFile[i][4] + ".pdf"));
+                      FileUtils.copyURLToFile(new URL(partNameFile[i][2]), new File(name + ".pdf"));
                   } catch (Exception e) {
                       System.err.print(e.getMessage());
-                      downloadUsingChrome(partNameFile[i][2], partNameFile[i][4]);
+                      downloadUsingChrome(partNameFile[i][2], name);
                       counter++;
                       System.out.println("counter  : " + counter);
                   }
               }
+              }
 //              downloadUsingChrome(partNameFile[i][1],partNameFile[i][3]+".pdf");
 
           }
+            System.out.println("Counter : "+counter);
+
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
