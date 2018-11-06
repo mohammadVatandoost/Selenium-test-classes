@@ -21,13 +21,13 @@ public class DigikeyDataProcessing {
 //        } catch (Exception e) {
 //            System.err.print(e.getMessage());
 //        }
-        test(allParts);
+
         Set<String> allPartsCategorySet = sortCategory(allParts);
         System.out.println("allPartsCategorySet.size() : " + allPartsCategorySet.size());
         String[] allPartsCategory = allPartsCategorySet.toArray(new String[allPartsCategorySet.size()]);
         System.out.println("allPartsCategory.length : " + allPartsCategory.length);
         Arrays.sort(allPartsCategory);
-        storeCategoryToCSV(allPartsCategory);
+
         CategoryInfo[] categoryInfo = new CategoryInfo[allPartsCategory.length];
         for(int i=0;i<allPartsCategory.length;i++) {
             System.out.println("allPartsCategory "+ i + " : "+ allPartsCategory[i]);
@@ -56,15 +56,21 @@ public class DigikeyDataProcessing {
             System.out.println("Not Found : "+allParts[i][4]);System.out.println("category : "+allParts[i][0]);
             }
         }
-        System.out.println("*************counter2 : "+counter2);
-        findProductCategory("TPS73633DBVT",categoryInfo);
+//        System.out.println("*************counter2 : "+counter2);
+//        findProductCategory("TPS73633DBVT",categoryInfo);
+//        storeCategoryToCSV(categoryInfo);
         int counter = 0;
         for(int i =0;i<categoryInfo.length;i++) {
             System.out.println("categoryInfo "+ i + " : "+ categoryInfo[i].firstCategory + " * "+ categoryInfo[i].secondCategory + " * "
                     + categoryInfo[i].thirdCategory + " * " + categoryInfo[i].counter + " * " + categoryInfo[i].productList.size());
             counter = counter + categoryInfo[i].productList.size();
+//            storeProductsToCSV(categoryInfo[i]);
+
         }
         System.out.println("counter : "+counter);
+        test(categoryInfo[11]); // from 11
+        storeProductsToCSV(categoryInfo[11]);
+        storeAllCommonProductDataToCSV(categoryInfo);
 //        Set<String> thirdSearchCategory = sortCategory(thirdAllParts);
 //        Set<String> secondSearchCategory = sortCategory(firstAllParts);
 //        System.out.println("secondSearch");
@@ -445,29 +451,16 @@ public class DigikeyDataProcessing {
         return AllParts;
     }
 
-    static void test(String[][] parts) {
-        ArrayList<String> list = new ArrayList<String>();
-        for(int i=0;i<parts.length;i++) {
-            if(parts[i] != null) {
-                if (parts[i][0] != null) {
-//                    System.out.println("parts " + i + " : " + parts[i][0]);
-                    list.add(parts[i][0]);
-                    if("RF/IF and RFID RFID, RF Access, Monitoring ICs".equals(parts[i][0])) {
-                        System.out.println("parts " + i + " 3: " + parts[i][3]);System.out.println("parts " + i + " 4: " + parts[i][4]);
-                    }
+    static void test(CategoryInfo categoryInfo) {
+        System.out.println("test : "+ categoryInfo.firstCategory+ " * "+ categoryInfo.secondCategory+" * "+ categoryInfo.thirdCategory);
+        for(int i=0; i< categoryInfo.productList.size();i++) {
+            for (int j=0;j<categoryInfo.productList.get(i).size();j++) {
+                if(categoryInfo.productList.get(i).get(j) != null) {
+                    System.out.println(i + " , " + j + " : " + categoryInfo.productList.get(i).get(j));
                 } else {
-//                    System.out.println("parts j is null");
+                    System.out.println(i+" , "+j+" : "+"this is null");
                 }
-            } else {
-//                System.out.println("parts is null");
             }
-        }
-        Set<String> set = new LinkedHashSet<String>(list);
-        String[] temp = set.toArray(new String[set.size()]);
-        Arrays.sort(temp);
-        System.out.println("Test ");
-        for(int i=0;i<temp.length;i++) {
-            System.out.println("category "+i + " : " + temp[i]);
         }
     }
 
@@ -487,20 +480,176 @@ public class DigikeyDataProcessing {
 
     static void storeProductsToCSV(CategoryInfo temp) {
         try {
+            int counters = 0 ;
           PrintWriter pw = new PrintWriter(new File(GlobalData.CSV_RESULT+temp.firstCategory+"_"+temp.secondCategory
                 +"_"+temp.thirdCategory+".csv"));
             StringBuilder sb = new StringBuilder();
+            for (int i=0;i<temp.productList.size();i++) {
+                for (int j=0;j<temp.productList.get(i).size();j++) {
+                   if(temp.productList.get(i).get(j) != null && (j>2)) {
+                       if(j==7) {
+                           sb.append("0");
+                           sb.append(",");
+                       } else if(j==6){
+                           sb.append("0");
+                           sb.append(",");
+                       } else if(j==8){
+                           sb.append("1");
+                           sb.append(",");
+                       } else {
+                           String buf = temp.productList.get(i).get(j).replace(",", "*");
+                           buf = buf.replaceAll("\\r|\\n", "#");
+//                           sb.append();
+                           sb.append(buf);
+                           sb.append(",");
+                       }
+//                       System.out.println(i+" , "+j+" : "+temp.productList.get(i).get(j));
+                   } else {
+//                       sb.append(" ");sb.append(",");
+//                       System.out.println(i+" , "+j+" : "+"this is null");
+                   }
+                }
+                sb.append('\n');
+            }
+//            System.out.println("counters is "+counters);
+            pw.write(sb.toString());
+            pw.close();
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
     }
 
-    static void storeCategoryToCSV(String[] temp) {
+    static void storeAllCommonProductDataToCSV(CategoryInfo[] categoryInfos) {
+        try {
+            int counters = 0 ;
+            //  for test
+            int flag = 0;
+            System.out.println("storeAllCommonProductDataToCSV");
+            PrintWriter pw = new PrintWriter(new File("common.csv"));
+            StringBuilder sb = new StringBuilder();
+            for (int t=0;t<categoryInfos.length;t++) {
+                CategoryInfo temp = categoryInfos[t];
+                for (int i=0;i<temp.productList.size();i++) {
+                    int dataType = 0 ;
+                    if(temp.productList.get(i).get(3).contains("Manufacturer")) { dataType = 1 ;}
+                    for (int j = 0; j < temp.productList.get(i).size(); j++) {
+                       if(temp.productList.get(i).get(j) != null) {
+                        if(j==0) {counters++;sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");} // image dataSheet Footprint
+                        if(dataType == 1) {
+                            if(j==3) {
+                                sb.append(temp.productList.get(i).get(2).replace(",", "*"));sb.append(",");sb.append("0");sb.append(",");sb.append("0");sb.append(","); // name,  quantity available, (price)(buy),
+                                sb.append(temp.productList.get(i).get(3).replace("Manufacturer ","").replace(",", "*"));sb.append(",");sb.append(" ");sb.append(","); // manufacturer, description,
+                            }
+                            if(j==5) {
+                                sb.append(temp.productList.get(i).get(5).replace("Packaging ","").replace(",", "*").replaceAll("\\r|\\n", "#"));sb.append(",");sb.append(temp.productList.get(i).get(4).replace("Series ","").replace(",", "*"));sb.append(","); // packing series
+                            }
+                            if(j==6) {
+                                sb.append(temp.productList.get(i).get(6).replace("Part Status ",""));sb.append(","); //  part Status
+                            }
+                        } else {
+                            if(j==3) {
+                                sb.append(temp.productList.get(i).get(3).replace(",", "*"));sb.append(",");sb.append("0");sb.append(",");sb.append("0");sb.append(","); // name,  quantity available, (price)(buy),
+                            }
+                            if(j==4) {
+                                sb.append(temp.productList.get(i).get(4).replaceAll(",", "*"));sb.append(","); //  manufacturer, ,
+                            }
+                            if(j==5) {
+                                sb.append(temp.productList.get(i).get(5).replaceAll(",", "*"));sb.append(","); // description
+                            }
+                            if(j==9) {
+                                sb.append(temp.productList.get(i).get(9).replaceAll("\\r|\\n", "#").replace(",", "*"));sb.append(","); // packing
+                            }
+                            if(j==10) {
+                                sb.append(temp.productList.get(i).get(10).replace(",", "*"));sb.append(","); // series
+                            }
+                            if(j==11) {
+                                sb.append(temp.productList.get(i).get(11));sb.append(","); // , part Status
+                            }
+                        }
+                       } else {
+                           if(j==0) {
+                               counters++;sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");// image dataSheet Footprint
+                           } else {
+                               System.out.println("is null  j: "+j);
+                           }
+//                           System.out.println("counters : "+counters);
+                       }
+//                      if(temp.productList.get(i).get(j) != null) {
+//
+//                        if(temp.productList.get(i).get(3).contains("Manufacturer NXP USA Inc")) {
+//                            if ( (j > 1) && (j < 10) ) {
+//                                //for test
+//                                if (temp.productList.get(i).get(j).contains("Manufacturer NXP USA Inc") && flag == 0) {
+//                                    flag++;
+//                                    for (int k = 0; k < temp.productList.get(i).size(); k++) {
+//                                        System.out.println("Manufacturer NXP USA Inc " + i + " , " + k + " : " + temp.productList.get(i).get(k));
+//                                    }
+//                                }
+//                                if (j == 7) {
+//                                    sb.append("0");sb.append(",");
+//                                } else if (j == 6) {
+//                                    sb.append("0");
+//                                    sb.append(",");
+//                                } else if (j == 8) {
+//                                    sb.append("1");
+//                                    sb.append(",");
+//                                } else {
+//                                    String buf = temp.productList.get(i).get(j).replace(",", "*");
+//                                    buf = buf.replaceAll("\\r|\\n", "#");
+//                                    sb.append(buf);
+//                                    sb.append(",");
+//                                }
+//                            }
+//                        } else {
+//                            // j=0 is image and j=1 is datasheet and j=2 is digikey partNumber
+//                            if ((j > 2) && (j < 10)) {
+//                                //for test
+//                                if (temp.productList.get(i).get(j).contains("Manufacturer NXP USA Inc") && flag == 0) {
+//                                    flag++;
+//                                    for (int k = 0; k < temp.productList.get(i).size(); k++) {
+//                                        System.out.println("Manufacturer NXP USA Inc " + i + " , " + k + " : " + temp.productList.get(i).get(k));
+//                                    }
+//                                }
+//                                if (j == 7) {
+//                                    sb.append("0");
+//                                    sb.append(",");
+//                                } else if (j == 6) {
+//                                    sb.append("0");
+//                                    sb.append(",");
+//                                } else if (j == 8) {
+//                                    sb.append("1");
+//                                    sb.append(",");
+//                                } else {
+//                                    String buf = temp.productList.get(i).get(j).replace(",", "*");
+//                                    buf = buf.replaceAll("\\r|\\n", "#");
+//                                    sb.append(buf);
+//                                    sb.append(",");
+//                                }
+//                            }
+//                        }
+//                      }
+                    }
+                    sb.append('\n');
+                }
+            }
+            System.out.println("counters is "+counters);
+            pw.write(sb.toString());
+            pw.close();
+        } catch (Exception e) {
+            System.err.print(e.getMessage());
+        }
+    }
+
+    static void storeCategoryToCSV(CategoryInfo[] temp) {
         try {
             PrintWriter pw = new PrintWriter(new File(GlobalData.CSV_RESULT+"Categories.csv"));
             StringBuilder sb = new StringBuilder();
             for (int i=0;i<temp.length;i++) {
-                sb.append(temp[i]);
+                sb.append(temp[i].firstCategory.replace(",","_")+"*"+
+                        temp[i].secondCategory.replace(",","_")+"*"+temp[i].thirdCategory.replace(",","_"));
+//                sb.append(",");
+//                sb.append(temp[i].secondCategory);sb.append(",");
+//                sb.append(temp[i].thirdCategory);
                 sb.append('\n');
             }
             pw.write(sb.toString());
