@@ -45,31 +45,30 @@ public class DigikeyDataProcessing {
                     flag++;
                     if(flag ==1 ){categoryTemp = categoryInfo[j].firstCategory+" * "+categoryInfo[j].secondCategory+" * "+categoryInfo[j].thirdCategory;}
                     if(flag == 2) {
-                        System.out.println("two category : "+allParts[i][4]);
-                        System.out.println(allParts[i][0]);
-                        System.out.println(categoryTemp);
-                        System.out.println(categoryInfo[j].firstCategory+" * "+categoryInfo[j].secondCategory+" * "+categoryInfo[j].thirdCategory);
+//                        System.out.println("two category : "+allParts[i][4]);
+//                        System.out.println(allParts[i][0]);
+//                        System.out.println(categoryTemp);
+//                        System.out.println(categoryInfo[j].firstCategory+" * "+categoryInfo[j].secondCategory+" * "+categoryInfo[j].thirdCategory);
                     }
                 }
             }
             if(flag == 0) {counter2++;
-            System.out.println("Not Found : "+allParts[i][4]);System.out.println("category : "+allParts[i][0]);
+//            System.out.println("Not Found : "+allParts[i][4]);System.out.println("category : "+allParts[i][0]);
             }
         }
 //        System.out.println("*************counter2 : "+counter2);
 //        findProductCategory("TPS73633DBVT",categoryInfo);
 //        storeCategoryToCSV(categoryInfo);
         int counter = 0;
-        for(int i =0;i<categoryInfo.length;i++) {
-            System.out.println("categoryInfo "+ i + " : "+ categoryInfo[i].firstCategory + " * "+ categoryInfo[i].secondCategory + " * "
-                    + categoryInfo[i].thirdCategory + " * " + categoryInfo[i].counter + " * " + categoryInfo[i].productList.size());
-            counter = counter + categoryInfo[i].productList.size();
-//            storeProductsToCSV(categoryInfo[i]);
-
-        }
+//        for(int i =0;i<categoryInfo.length;i++) {
+//            System.out.println("categoryInfo "+ i + " : "+ categoryInfo[i].firstCategory + " * "+ categoryInfo[i].secondCategory + " * "
+//                    + categoryInfo[i].thirdCategory + " * " + categoryInfo[i].counter + " * " + categoryInfo[i].productList.size());
+//            counter = counter + categoryInfo[i].productList.size();
+//
+//        }
         System.out.println("counter : "+counter);
-        test(categoryInfo[11]); // from 11
-        storeProductsToCSV(categoryInfo[11]);
+//        test(categoryInfo[13]); // from 11
+//        storeProductsToCSV(categoryInfo[13]);
         storeAllCommonProductDataToCSV(categoryInfo);
 //        Set<String> thirdSearchCategory = sortCategory(thirdAllParts);
 //        Set<String> secondSearchCategory = sortCategory(firstAllParts);
@@ -483,35 +482,32 @@ public class DigikeyDataProcessing {
             int counters = 0 ;
           PrintWriter pw = new PrintWriter(new File(GlobalData.CSV_RESULT+temp.firstCategory+"_"+temp.secondCategory
                 +"_"+temp.thirdCategory+".csv"));
+            System.out.println("storeProductsToCSV : "+temp.firstCategory+"_"+temp.secondCategory +"_"+temp.thirdCategory);
             StringBuilder sb = new StringBuilder();
             for (int i=0;i<temp.productList.size();i++) {
-                for (int j=0;j<temp.productList.get(i).size();j++) {
-                   if(temp.productList.get(i).get(j) != null && (j>2)) {
-                       if(j==7) {
-                           sb.append("0");
-                           sb.append(",");
-                       } else if(j==6){
-                           sb.append("0");
-                           sb.append(",");
-                       } else if(j==8){
-                           sb.append("1");
-                           sb.append(",");
-                       } else {
-                           String buf = temp.productList.get(i).get(j).replace(",", "*");
-                           buf = buf.replaceAll("\\r|\\n", "#");
-//                           sb.append();
-                           sb.append(buf);
-                           sb.append(",");
-                       }
+                int dataType = 0 ;
+                if(temp.productList.get(i).get(3).contains("Manufacturer")) { dataType = 1 ;}
+                for (int j=1;j<temp.productList.get(i).size();j++) {
+                    if(temp.productList.get(i).get(j) != null) {
+                        if (dataType == 1) {
+                            if ((j > 6)) {
+                                sb.append(temp.productList.get(i).get(j).replaceAll(",", "*").replaceAll("\\r|\\n", "#"));
+                                sb.append(",");
 //                       System.out.println(i+" , "+j+" : "+temp.productList.get(i).get(j));
-                   } else {
-//                       sb.append(" ");sb.append(",");
-//                       System.out.println(i+" , "+j+" : "+"this is null");
-                   }
+                            }
+
+                        } else {
+                            if ((j > 12)) {
+                                sb.append(temp.productList.get(i).get(j).replaceAll(",", "*").replaceAll("\\r|\\n", "#"));
+                                sb.append(",");
+//                       System.out.println(i+" , "+j+" : "+temp.productList.get(i).get(j));
+                            }
+                        }
+                    } else {counters++;}
                 }
                 sb.append('\n');
             }
-//            System.out.println("counters is "+counters);
+            System.out.println("null counters is "+counters);
             pw.write(sb.toString());
             pw.close();
         } catch (Exception e) {
@@ -523,8 +519,9 @@ public class DigikeyDataProcessing {
         try {
             int counters = 0 ;
             //  for test
-            int flag = 0;
+            int flag = 0;String[][] desProduct = getFileData(GlobalData.DES_FOUNDED);
             System.out.println("storeAllCommonProductDataToCSV");
+            System.out.println("desProduct length : "+ desProduct.length);
             PrintWriter pw = new PrintWriter(new File("common.csv"));
             StringBuilder sb = new StringBuilder();
             for (int t=0;t<categoryInfos.length;t++) {
@@ -534,11 +531,15 @@ public class DigikeyDataProcessing {
                     if(temp.productList.get(i).get(3).contains("Manufacturer")) { dataType = 1 ;}
                     for (int j = 0; j < temp.productList.get(i).size(); j++) {
                        if(temp.productList.get(i).get(j) != null) {
-                        if(j==0) {counters++;sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");} // image dataSheet Footprint
+                        if(j==0) {sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");} // image dataSheet Footprint
                         if(dataType == 1) {
                             if(j==3) {
                                 sb.append(temp.productList.get(i).get(2).replace(",", "*"));sb.append(",");sb.append("0");sb.append(",");sb.append("0");sb.append(","); // name,  quantity available, (price)(buy),
-                                sb.append(temp.productList.get(i).get(3).replace("Manufacturer ","").replace(",", "*"));sb.append(",");sb.append(" ");sb.append(","); // manufacturer, description,
+                                sb.append(temp.productList.get(i).get(3).replace("Manufacturer ","").replace(",", "*"));sb.append(","); //manufacturer
+//                                if(!= null)
+                                sb.append(findDes(desProduct,temp.productList.get(i).get(2)).replaceAll(",", "*"));sb.append(","); // , description,
+//                                noDesProduct[counters] = temp.productList.get(i).get(2);
+//                                counters++;
                             }
                             if(j==5) {
                                 sb.append(temp.productList.get(i).get(5).replace("Packaging ","").replace(",", "*").replaceAll("\\r|\\n", "#"));sb.append(",");sb.append(temp.productList.get(i).get(4).replace("Series ","").replace(",", "*"));sb.append(","); // packing series
@@ -568,73 +569,25 @@ public class DigikeyDataProcessing {
                         }
                        } else {
                            if(j==0) {
-                               counters++;sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");// image dataSheet Footprint
+                               sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");// image dataSheet Footprint
                            } else {
                                System.out.println("is null  j: "+j);
                            }
-//                           System.out.println("counters : "+counters);
                        }
-//                      if(temp.productList.get(i).get(j) != null) {
-//
-//                        if(temp.productList.get(i).get(3).contains("Manufacturer NXP USA Inc")) {
-//                            if ( (j > 1) && (j < 10) ) {
-//                                //for test
-//                                if (temp.productList.get(i).get(j).contains("Manufacturer NXP USA Inc") && flag == 0) {
-//                                    flag++;
-//                                    for (int k = 0; k < temp.productList.get(i).size(); k++) {
-//                                        System.out.println("Manufacturer NXP USA Inc " + i + " , " + k + " : " + temp.productList.get(i).get(k));
-//                                    }
-//                                }
-//                                if (j == 7) {
-//                                    sb.append("0");sb.append(",");
-//                                } else if (j == 6) {
-//                                    sb.append("0");
-//                                    sb.append(",");
-//                                } else if (j == 8) {
-//                                    sb.append("1");
-//                                    sb.append(",");
-//                                } else {
-//                                    String buf = temp.productList.get(i).get(j).replace(",", "*");
-//                                    buf = buf.replaceAll("\\r|\\n", "#");
-//                                    sb.append(buf);
-//                                    sb.append(",");
-//                                }
-//                            }
-//                        } else {
-//                            // j=0 is image and j=1 is datasheet and j=2 is digikey partNumber
-//                            if ((j > 2) && (j < 10)) {
-//                                //for test
-//                                if (temp.productList.get(i).get(j).contains("Manufacturer NXP USA Inc") && flag == 0) {
-//                                    flag++;
-//                                    for (int k = 0; k < temp.productList.get(i).size(); k++) {
-//                                        System.out.println("Manufacturer NXP USA Inc " + i + " , " + k + " : " + temp.productList.get(i).get(k));
-//                                    }
-//                                }
-//                                if (j == 7) {
-//                                    sb.append("0");
-//                                    sb.append(",");
-//                                } else if (j == 6) {
-//                                    sb.append("0");
-//                                    sb.append(",");
-//                                } else if (j == 8) {
-//                                    sb.append("1");
-//                                    sb.append(",");
-//                                } else {
-//                                    String buf = temp.productList.get(i).get(j).replace(",", "*");
-//                                    buf = buf.replaceAll("\\r|\\n", "#");
-//                                    sb.append(buf);
-//                                    sb.append(",");
-//                                }
-//                            }
-//                        }
-//                      }
+
                     }
-                    sb.append('\n');
+                    sb.append(Integer.toString(t+1));sb.append(",");sb.append(Integer.toString(i+1));sb.append(",");sb.append('\n');
                 }
             }
             System.out.println("counters is "+counters);
             pw.write(sb.toString());
             pw.close();
+
+            // store no des product
+//            FileOutputStream partNameFile = new FileOutputStream("noDesProduct.json");
+//            ObjectOutputStream oos = new ObjectOutputStream(partNameFile);
+//            oos.writeObject(noDesProduct);
+//            oos.close();
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
@@ -678,5 +631,35 @@ public class DigikeyDataProcessing {
                         removeFirstCategory.contains(categoryInfo.secondCategory) && removeFirstCategory.contains(categoryInfo.thirdCategory) &&
                         (temp.length() - (categoryInfo.firstCategory+" "+categoryInfo.secondCategory+" "+categoryInfo.thirdCategory).length()) < 5
                 );
+    }
+
+    static String findDes(String[][] temp ,String name) {
+        System.out.println("findDes");
+        if(temp != null) {
+            if (name != null) {
+                for (int i = 0; i < temp.length; i++) {
+                    if (temp[i] != null) {
+                        if (temp[i][0] != null) {
+                            if (temp[i][0].equals(name)) {
+                                if (temp[i][1] != null) {
+                                    return temp[i][1];
+                                } else {
+//                                    System.out.println("temp[i][1] is null");
+                                    break;
+                                }
+
+                            }
+                        } else {
+//                            System.out.println("temp[i][0] is null");
+                        }
+                    } else {
+//                        System.out.println("temp[i] is null");
+                    }
+                }
+            } else {
+//                System.out.println("name is null");
+            }
+        } else {System.out.println("temp is null");}
+        return " ";
     }
 }
