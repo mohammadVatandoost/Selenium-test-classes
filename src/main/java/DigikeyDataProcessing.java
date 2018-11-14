@@ -30,7 +30,7 @@ public class DigikeyDataProcessing {
 
         CategoryInfo[] categoryInfo = new CategoryInfo[allPartsCategory.length];
         for(int i=0;i<allPartsCategory.length;i++) {
-            System.out.println("allPartsCategory "+ i + " : "+ allPartsCategory[i]);
+//            System.out.println("allPartsCategory "+ i + " : "+ allPartsCategory[i]);
             categoryInfo[i] = checkCategory(allPartsCategory[i]);
 //new CategoryInfo();
 //            categoryInfo[i].firstCategory = allPartsCategory[i];
@@ -65,11 +65,15 @@ public class DigikeyDataProcessing {
 //                    + categoryInfo[i].thirdCategory + " * " + categoryInfo[i].counter + " * " + categoryInfo[i].productList.size());
 //            counter = counter + categoryInfo[i].productList.size();
 //
+//            storeProductsToCSV(categoryInfo[i]);
 //        }
-        System.out.println("counter : "+counter);
+//        System.out.println("counter : "+counter);
 //        test(categoryInfo[13]); // from 11
-//        storeProductsToCSV(categoryInfo[13]);
-        storeAllCommonProductDataToCSV(categoryInfo);
+//        storeProductsToCSV(categoryInfo[12]);
+        storeProductsToCSV(categoryInfo[60]); // 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 58 59
+        // not 37
+        // check 57
+//        storeAllCommonProductDataToCSV(categoryInfo);
 //        Set<String> thirdSearchCategory = sortCategory(thirdAllParts);
 //        Set<String> secondSearchCategory = sortCategory(firstAllParts);
 //        System.out.println("secondSearch");
@@ -480,27 +484,34 @@ public class DigikeyDataProcessing {
     static void storeProductsToCSV(CategoryInfo temp) {
         try {
             int counters = 0 ;
-          PrintWriter pw = new PrintWriter(new File(GlobalData.CSV_RESULT+temp.firstCategory+"_"+temp.secondCategory
-                +"_"+temp.thirdCategory+".csv"));
-            System.out.println("storeProductsToCSV : "+temp.firstCategory+"_"+temp.secondCategory +"_"+temp.thirdCategory);
+            String fileNmae = temp.firstCategory+"_"+temp.secondCategory +"_"+temp.thirdCategory;
+            fileNmae = fileNmae.replaceAll("\\(","");fileNmae = fileNmae.replaceAll("\\)","");
+            fileNmae = fileNmae.replaceAll("(ICs)","ICs");fileNmae.replaceAll(" - ","_");fileNmae = fileNmae.replaceAll(" ","_");
+            fileNmae = fileNmae.replaceAll("\\\\","_");
+            fileNmae = fileNmae.replaceAll("__","_");fileNmae = fileNmae.replaceAll(",","");
+            fileNmae = fileNmae.replaceAll("_-_","_");
+          PrintWriter pw = new PrintWriter(new File(GlobalData.CSV_RESULT+fileNmae+".csv"));
             StringBuilder sb = new StringBuilder();
-            for (int i=0;i<temp.productList.size();i++) {
+            for (int i=0;i<temp.productList.size();i++) { //
                 int dataType = 0 ;
                 if(temp.productList.get(i).get(3).contains("Manufacturer")) { dataType = 1 ;}
                 for (int j=1;j<temp.productList.get(i).size();j++) {
+                    System.out.println(i+" , "+j+" : "+temp.productList.get(i).get(j));
                     if(temp.productList.get(i).get(j) != null) {
                         if (dataType == 1) {
                             if ((j > 6)) {
-                                sb.append(temp.productList.get(i).get(j).replaceAll(",", "*").replaceAll("\\r|\\n", "#"));
+                                String tempBuf = temp.productList.get(i).get(j).replaceAll(",", "*").replaceAll("\\r|\\n", "#");
+                                sb.append(correctFeatures(tempBuf));
                                 sb.append(",");
-//                       System.out.println(i+" , "+j+" : "+temp.productList.get(i).get(j));
+//                       System.out.println("name : "+i+" , "+j+" : "+temp.productList.get(i).get(4));
                             }
 
                         } else {
-                            if ((j > 12)) {
-                                sb.append(temp.productList.get(i).get(j).replaceAll(",", "*").replaceAll("\\r|\\n", "#"));
+                            if ((j > 11)) {
+                                String tempBuf = temp.productList.get(i).get(j).replaceAll(",", "*").replaceAll("\\r|\\n", "#");
+                                sb.append(correctFeatures(tempBuf));
                                 sb.append(",");
-//                       System.out.println(i+" , "+j+" : "+temp.productList.get(i).get(j));
+//                       System.out.println("name : "+i+" , "+j+" : "+temp.productList.get(i).get(3));
                             }
                         }
                     } else {counters++;}
@@ -510,6 +521,7 @@ public class DigikeyDataProcessing {
             System.out.println("null counters is "+counters);
             pw.write(sb.toString());
             pw.close();
+            System.out.println("storeProductsToCSV : "+temp.firstCategory+"_"+temp.secondCategory +"_"+temp.thirdCategory);
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
@@ -661,5 +673,105 @@ public class DigikeyDataProcessing {
             }
         } else {System.out.println("temp is null");}
         return " ";
+    }
+
+    static String correctFeatures(String temp) {
+        String tempBuff = temp;
+        tempBuff = tempBuff.replace("Diode Configuration ","");
+        tempBuff = tempBuff.replace("Diode Type ","");
+        tempBuff = tempBuff.replace("Voltage - DC Reverse (Vr) (Max) ","");
+        tempBuff = tempBuff.replace("Current - Average Rectified (Io) (per Diode) ","");
+        tempBuff = tempBuff.replace("Voltage - Forward (Vf) (Max) @ If ","");
+        tempBuff = tempBuff.replace("Speed ","");
+        tempBuff = tempBuff.replace("Reverse Recovery Time (trr) ","");
+        tempBuff = tempBuff.replace("Current - Reverse Leakage @ Vr ","");
+        tempBuff = tempBuff.replace("Operating Temperature - Junction ","");
+        tempBuff = tempBuff.replace("Mounting Type ","");
+        tempBuff = tempBuff.replace("Package / Case ","");
+        tempBuff = tempBuff.replace("Supplier Device Package ","");
+        tempBuff = tempBuff.replace("Manufacturer ","");
+        tempBuff = tempBuff.replace("Series ","");
+        tempBuff = tempBuff.replace("Packaging ","");
+        tempBuff = tempBuff.replace("Part Status ","");
+        tempBuff = tempBuff.replace("Diode Type ","");
+        tempBuff = tempBuff.replace("Voltage - Peak Reverse (Max) ","");
+        tempBuff = tempBuff.replace("Capacitance @ Vr* F ","");
+        tempBuff = tempBuff.replace("Resistance @ If* F ","");
+        tempBuff = tempBuff.replace("Power Dissipation (Max) ","");
+        tempBuff = tempBuff.replace("Operating Temperature ","");
+        tempBuff = tempBuff.replace("Package / Case ","");
+        tempBuff = tempBuff.replace("Current - Max ","");
+        tempBuff = tempBuff.replace("Current - Average Rectified (Io) ","");
+        tempBuff = tempBuff.replace("Capacitance Ratio ","");
+        tempBuff = tempBuff.replace("Capacitance Ratio Condition ","");
+        tempBuff = tempBuff.replace("Voltage - Zener (Nom) (Vz) ","");
+        tempBuff = tempBuff.replace("Tolerance ","");
+        tempBuff = tempBuff.replace("Power - Max ","");
+        tempBuff = tempBuff.replace("Impedance (Max) (Zzt) ","");
+        tempBuff = tempBuff.replace("Capacitance Ratio Condition ","");
+        tempBuff = tempBuff.replace("Configuration ","");
+//        tempBuff = tempBuff.replace("Current ","");
+        tempBuff = tempBuff.replace("Voltage - Isolation ","");
+        tempBuff = tempBuff.replace("Voltage - Breakover ","");
+        tempBuff = tempBuff.replace("Current - Breakover ","");
+        tempBuff = tempBuff.replace("Current - Peak Output ","");
+//        tempBuff = tempBuff.replace("Voltage ","");
+        tempBuff = tempBuff.replace("Voltage - Off State ","");
+        tempBuff = tempBuff.replace("Voltage - Gate Trigger (Vgt) (Max) ","");
+        tempBuff = tempBuff.replace("Current - Gate Trigger (Igt) (Max) ","");
+        tempBuff = tempBuff.replace("Voltage - On State (Vtm) (Max) ","");
+        tempBuff = tempBuff.replace("Current - On State (It (AV)) (Max) ","");
+        tempBuff = tempBuff.replace("Current - On State (It (RMS)) (Max) ","");
+        tempBuff = tempBuff.replace("Current - Hold (Ih) (Max) ","");
+        tempBuff = tempBuff.replace("Current - Off State (Max) ","");
+        tempBuff = tempBuff.replace("SCR Type ","");
+        tempBuff = tempBuff.replace("Current - Non Rep. Surge 50* 60Hz (Itsm) ","");
+//        tempBuff = tempBuff.replace("SCR Type ","");
+        tempBuff = tempBuff.replace("Transistor Type ","");
+        tempBuff = tempBuff.replace("Current - Collector (Ic) (Max) ","");
+        tempBuff = tempBuff.replace("Voltage - Collector Emitter Breakdown (Max) ","");
+        tempBuff = tempBuff.replace("Vce Saturation (Max) @ Ib* Ic ","");
+        tempBuff = tempBuff.replace("Current - Collector Cutoff (Max) ","");
+        tempBuff = tempBuff.replace("DC Current Gain (hFE) (Min) @ Ic* Vce ","");
+        tempBuff = tempBuff.replace("Frequency - Transition ","");
+        tempBuff = tempBuff.replace("Resistor - Base (R1) ","");
+        tempBuff = tempBuff.replace("Resistor - Emitter Base (R2) ","");
+        tempBuff = tempBuff.replace("Noise Figure (dB Typ @ f) ","");
+        tempBuff = tempBuff.replace("Gain ","");
+        tempBuff = tempBuff.replace("FET Type ","");
+        tempBuff = tempBuff.replace("FET Feature ","");
+        tempBuff = tempBuff.replace("Drain to Source Voltage (Vdss) ","");
+//        tempBuff = tempBuff.replace("Current - Continuous Drain (Id) @ 25Â°C ","");
+        tempBuff = tempBuff.replace("Rds On (Max) @ Id* Vgs ","");
+        tempBuff = tempBuff.replace("Vgs(th) (Max) @ Id ","");
+        tempBuff = tempBuff.replace("Gate Charge (Qg) (Max) @ Vgs ","");
+        tempBuff = tempBuff.replace("Input Capacitance (Ciss) (Max) @ Vds ","");
+        tempBuff = tempBuff.replace("Frequency ","");
+        tempBuff = tempBuff.replace("Voltage - Test ","");
+        tempBuff = tempBuff.replace("Current Rating ","");
+        tempBuff = tempBuff.replace("Noise Figure ","");
+        tempBuff = tempBuff.replace("Current - Test ","");
+        tempBuff = tempBuff.replace("Power - Output ","");
+        tempBuff = tempBuff.replace("Voltage - Rated ","");
+        tempBuff = tempBuff.replace("Drive Voltage (Max Rds On* Min Rds On) ","");
+        tempBuff = tempBuff.replace("Vgs (Max) ","");
+        tempBuff = tempBuff.replace("Technology ","");
+        tempBuff = tempBuff.replace("Vce(on) (Max) @ Vge* Ic ","");
+        tempBuff = tempBuff.replace("Input Capacitance (Cies) @ Vce ","");
+        tempBuff = tempBuff.replace("NTC Thermistor ","");
+        tempBuff = tempBuff.replace("Input Type ","");
+        tempBuff = tempBuff.replace("IGBT Type ","");
+        tempBuff = tempBuff.replace("Voltage - Collector Emitter Breakdown (Max) ","");
+        tempBuff = tempBuff.replace("Current - Collector Pulsed (Icm) ","");
+        tempBuff = tempBuff.replace("Current - Collector Pulsed (Icm) ","");
+        tempBuff = tempBuff.replace("Vce(on) (Max) @ Vge* Ic ","");
+        tempBuff = tempBuff.replace("Power - Max ","");
+        tempBuff = tempBuff.replace("Switching Energy ","");
+        tempBuff = tempBuff.replace("Gate Charge ","");
+        tempBuff = tempBuff.replace("Test Condition ","");
+        tempBuff = tempBuff.replace("Reverse Recovery Time (trr) ","");
+        tempBuff = tempBuff.replace("Gain ","");
+
+        return tempBuff;
     }
 }

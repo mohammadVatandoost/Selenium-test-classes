@@ -14,4 +14,5 @@ public class GlobalData {
 
     // IC kala
     public static final String ICKala_CAPACITORS_CERAMIC = BASE_ADRESS + "FILES\\ICKala\\ICKala_Capacitors_Ceramic.json";
+    public static final String ICKala_CAPACITORS_TANTALUM = BASE_ADRESS + "FILES\\ICKala\\ICKala_Capacitors_Tantalum.json";
 }
