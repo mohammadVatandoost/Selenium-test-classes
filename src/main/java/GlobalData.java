@@ -15,4 +15,10 @@ public class GlobalData {
     // IC kala
     public static final String ICKala_CAPACITORS_CERAMIC = BASE_ADRESS + "FILES\\ICKala\\ICKala_Capacitors_Ceramic.json";
     public static final String ICKala_CAPACITORS_TANTALUM = BASE_ADRESS + "FILES\\ICKala\\ICKala_Capacitors_Tantalum.json";
+    public static final String ICKala_CAPACITORS_AluminiumElectrolyticSMD = BASE_ADRESS + "FILES\\ICKala\\ICKala_Capacitors_AluminiumElectrolyticSMD.json";
+    public static final String ICKala_CAPACITORS_AluminiumElectrolyticRADIAL = BASE_ADRESS + "FILES\\ICKala\\ICKala_Capacitors_AluminiumElectrolyticRADIAL.json";
+
+    public static final String ICKala_RESISTORS_SURFACEMOUNT = BASE_ADRESS + "FILES\\ICKala\\ICKala_Resistors_SurfaceMount.json";
+    public static final String ICKala_RESISTORS_THROUGHHOLE = BASE_ADRESS + "FILES\\ICKala\\ICKala_Resistors_DIPThrough.json";
+
 }

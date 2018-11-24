@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40cf7892-f39b-4880-9b2b-8c3383e2e923" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DigikeyDataProcessing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DigikeyDataProcessing.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GlobalData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GlobalData.java" afterDir="false" />
@@ -51,45 +52,50 @@
     <session id="-399042899">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
+          <entry key="project.closed" value="15" />
           <entry key="project.open.time.10" value="4" />
-          <entry key="project.open.time.11" value="3" />
-          <entry key="project.open.time.12" value="5" />
+          <entry key="project.open.time.11" value="6" />
+          <entry key="project.open.time.12" value="8" />
           <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.14" value="1" />
+          <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="4707" />
+          <entry key="java" value="6135" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="4707" />
+          <entry key="JAVA" value="6135" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="java" value="29" />
+          <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JAVA" value="29" />
+          <entry key="XML" value="1" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/DigikeyDataProcessing.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="773" lean-forward="true" selection-start-line="773" selection-end-line="773" />
+            <state relative-caret-position="1258">
+              <caret line="77" column="28" selection-start-line="77" selection-start-column="28" selection-end-line="77" selection-end-column="28" />
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="method#checkCategory#0;class#DigikeyDataProcessing#0" />
                 <element signature="method#concat2DArray#0;class#DigikeyDataProcessing#0" />
                 <element signature="method#normalizeCategory#0;class#DigikeyDataProcessing#0" />
@@ -98,8 +104,10 @@
                 <element signature="method#getFileData#0;class#DigikeyDataProcessing#0" />
                 <element signature="method#test#0;class#DigikeyDataProcessing#0" />
                 <element signature="method#findProductCategory#0;class#DigikeyDataProcessing#0" />
+                <element signature="method#storeProductsToCSV#0;class#DigikeyDataProcessing#0" />
                 <element signature="method#storeAllCommonProductDataToCSV#0;class#DigikeyDataProcessing#0" />
                 <element signature="method#storeCategoryToCSV#0;class#DigikeyDataProcessing#0" />
+                <element signature="method#removeMultipleCharFromString#0;class#DigikeyDataProcessing#0" />
                 <element signature="method#checkEqualityCategories#0;class#DigikeyDataProcessing#0" />
                 <element signature="method#findDes#0;class#DigikeyDataProcessing#0" />
               </folding>
@@ -108,15 +116,30 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ICkala.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1879">
-              <caret line="200" column="64" lean-forward="true" selection-start-line="200" selection-start-column="64" selection-end-line="200" selection-end-column="64" />
+            <state relative-caret-position="271">
+              <caret line="605" column="29" selection-start-line="605" selection-start-column="29" selection-end-line="605" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#ceramicCapacitorsDataProcessing#0;class#ICkala#0" />
                 <element signature="method#getdecodeCName#0;class#ICkala#0" />
                 <element signature="method#getCapacitorsCeramic#0;class#ICkala#0" />
+                <element signature="method#getCapacitorsTantalum#0;class#ICkala#0" />
+                <element signature="method#makeCapacitorsTantalumName#0;class#ICkala#0" />
+                <element signature="method#tantalumCapacitorsDataProcessing#0;class#ICkala#0" />
                 <element signature="method#getCapacitorsAluminiumElectrolyticSMD#0;class#ICkala#0" />
+                <element signature="method#aluminiumElectrolyticSMDDataProcessing#0;class#ICkala#0" />
+                <element signature="method#getCapacitorsAluminiumElectrolyticRADIAL#0;class#ICkala#0" />
+                <element signature="method#aluminiumElectrolyticRADIALDataProcessing#0;class#ICkala#0" />
+                <element signature="method#getResistorsSurfaceMount#0;class#ICkala#0" />
+                <element signature="method#resistorsSurfaceMountDataProcessing#0;class#ICkala#0" />
+                <element signature="method#getdecodeRName#0;class#ICkala#0" />
               </folding>
             </state>
           </provider>
@@ -125,8 +148,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/GlobalData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="308">
+              <caret line="21" column="119" selection-start-line="21" selection-start-column="119" selection-end-line="21" selection-end-column="119" />
             </state>
           </provider>
         </entry>
@@ -192,6 +215,8 @@
     <findStrings>
       <find>storeCategoryToCSV</find>
       <find>\n</find>
+      <find>Size / Dimension</find>
+      <find>Number of Outputs</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -203,10 +228,10 @@
         <option value="$PROJECT_DIR$/src/main/java/DigiKeyDownloadFile.java" />
         <option value="$PROJECT_DIR$/src/main/java/DigikeyDescProduct.java" />
         <option value="$PROJECT_DIR$/src/main/java/AllFileToOne.java" />
+        <option value="$PROJECT_DIR$/src/main/java/DigikeyDataProcessing.java" />
         <option value="$PROJECT_DIR$/src/main/java/GlobalData.java" />
         <option value="$PROJECT_DIR$/src/main/java/GlobalData.java" />
         <option value="$PROJECT_DIR$/src/main/java/ICkala.java" />
-        <option value="$PROJECT_DIR$/src/main/java/DigikeyDataProcessing.java" />
       </list>
     </option>
   </component>
@@ -216,7 +241,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="95" />
     <option name="y" value="-15" />
     <option name="width" value="1750" />
@@ -228,14 +253,17 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
             <path>
               <item name="maven-example" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="Selenium-test-classes" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+            </path>
+            <path>
+              <item name="maven-example" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="Selenium-test-classes" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name=".idea" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="maven-example" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -259,12 +287,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542207887573" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543048352680" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -278,7 +308,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.DigikeyDataProcessing">
+  <component name="RunManager" selected="Application.ICkala">
     <configuration name="DigiKeyDownloadFile" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DigiKeyDownloadFile" />
       <module name="maven-example" />
@@ -315,8 +345,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DigikeyDataProcessing" />
         <item itemvalue="Application.ICkala" />
+        <item itemvalue="Application.DigikeyDataProcessing" />
         <item itemvalue="Application.DigikeyDescProduct" />
         <item itemvalue="Application.DigiKeyDownloadFile" />
       </list>
@@ -347,18 +377,26 @@
       <workItem from="1541689309651" duration="4818000" />
       <workItem from="1541836192468" duration="11808000" />
       <workItem from="1542046047194" duration="15368000" />
-      <workItem from="1542218259368" duration="12178000" />
+      <workItem from="1542218259368" duration="13593000" />
+      <workItem from="1542365422963" duration="758000" />
+      <workItem from="1542372460441" duration="6851000" />
+      <workItem from="1542388056625" duration="8991000" />
+      <workItem from="1542435526878" duration="13264000" />
+      <workItem from="1542558733202" duration="18475000" />
+      <workItem from="1542627912810" duration="3524000" />
+      <workItem from="1542783986640" duration="4118000" />
+      <workItem from="1543042384755" duration="2750000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124143000" />
+    <option name="totallyTimeSpent" value="184289000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4989429" visible="true" weight="0.24966443" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4989429" visible="true" weight="0.25167784" />
       <window_info id="Structure" order="1" sideWeight="0.5010571" side_tool="true" weight="0.23154363" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -429,9 +467,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="623">
           <caret line="51" column="55" selection-start-line="51" selection-start-column="55" selection-end-line="51" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -505,12 +540,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/GlobalData.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/DigikeyDataProcessing.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="1258">
+          <caret line="77" column="28" selection-start-line="77" selection-start-column="28" selection-end-line="77" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#checkCategory#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#concat2DArray#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#normalizeCategory#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#covertCamelCaseToUnderScore#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#sortCategory#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#getFileData#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#test#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#findProductCategory#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#storeProductsToCSV#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#storeAllCommonProductDataToCSV#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#storeCategoryToCSV#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#removeMultipleCharFromString#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#checkEqualityCategories#0;class#DigikeyDataProcessing#0" />
+            <element signature="method#findDes#0;class#DigikeyDataProcessing#0" />
+          </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/SortForDigiKey.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -550,36 +605,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ICkala.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/GlobalData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1879">
-          <caret line="200" column="64" lean-forward="true" selection-start-line="200" selection-start-column="64" selection-end-line="200" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getdecodeCName#0;class#ICkala#0" />
-            <element signature="method#getCapacitorsCeramic#0;class#ICkala#0" />
-            <element signature="method#getCapacitorsAluminiumElectrolyticSMD#0;class#ICkala#0" />
-          </folding>
+        <state relative-caret-position="308">
+          <caret line="21" column="119" selection-start-line="21" selection-start-column="119" selection-end-line="21" selection-end-column="119" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/DigikeyDataProcessing.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ICkala.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="773" lean-forward="true" selection-start-line="773" selection-end-line="773" />
+        <state relative-caret-position="271">
+          <caret line="605" column="29" selection-start-line="605" selection-start-column="29" selection-end-line="605" selection-end-column="29" />
           <folding>
-            <element signature="method#checkCategory#0;class#DigikeyDataProcessing#0" />
-            <element signature="method#concat2DArray#0;class#DigikeyDataProcessing#0" />
-            <element signature="method#normalizeCategory#0;class#DigikeyDataProcessing#0" />
-            <element signature="method#covertCamelCaseToUnderScore#0;class#DigikeyDataProcessing#0" />
-            <element signature="method#sortCategory#0;class#DigikeyDataProcessing#0" />
-            <element signature="method#getFileData#0;class#DigikeyDataProcessing#0" />
-            <element signature="method#test#0;class#DigikeyDataProcessing#0" />
-            <element signature="method#findProductCategory#0;class#DigikeyDataProcessing#0" />
-            <element signature="method#storeAllCommonProductDataToCSV#0;class#DigikeyDataProcessing#0" />
-            <element signature="method#storeCategoryToCSV#0;class#DigikeyDataProcessing#0" />
-            <element signature="method#checkEqualityCategories#0;class#DigikeyDataProcessing#0" />
-            <element signature="method#findDes#0;class#DigikeyDataProcessing#0" />
+            <element signature="imports" expanded="true" />
+            <element signature="method#ceramicCapacitorsDataProcessing#0;class#ICkala#0" />
+            <element signature="method#getdecodeCName#0;class#ICkala#0" />
+            <element signature="method#getCapacitorsCeramic#0;class#ICkala#0" />
+            <element signature="method#getCapacitorsTantalum#0;class#ICkala#0" />
+            <element signature="method#makeCapacitorsTantalumName#0;class#ICkala#0" />
+            <element signature="method#tantalumCapacitorsDataProcessing#0;class#ICkala#0" />
+            <element signature="method#getCapacitorsAluminiumElectrolyticSMD#0;class#ICkala#0" />
+            <element signature="method#aluminiumElectrolyticSMDDataProcessing#0;class#ICkala#0" />
+            <element signature="method#getCapacitorsAluminiumElectrolyticRADIAL#0;class#ICkala#0" />
+            <element signature="method#aluminiumElectrolyticRADIALDataProcessing#0;class#ICkala#0" />
+            <element signature="method#getResistorsSurfaceMount#0;class#ICkala#0" />
+            <element signature="method#resistorsSurfaceMountDataProcessing#0;class#ICkala#0" />
+            <element signature="method#getdecodeRName#0;class#ICkala#0" />
           </folding>
         </state>
       </provider>
