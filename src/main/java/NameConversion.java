@@ -7,18 +7,15 @@ import java.io.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class ICkala {
+public class NameConversion {
     public static void main(String[] args) {
         try {
 
             System.out.println("Start");
-            System.setProperty("webdriver.chrome.driver", GlobalData.CHROME_DRIVER);
-            // Webdriver
-            WebDriver driveChrome = new ChromeDriver();//BrowserVersion.CHROME
-            driveChrome.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+
 
 //            getCapacitorsTantalum(driveChrome);
-             tantalumCapacitorsDataProcessing();
+//            tantalumCapacitorsDataProcessing();
 
 //            getCapacitorsCeramic(driveChrome);
 //            ceramicCapacitorsDataProcessing();
@@ -33,7 +30,7 @@ public class ICkala {
 //            resistorsSurfaceMountDataProcessing();
 
 //            getResistorsDipThrough(driveChrome);
-//            resistorsThroughHoleDataProcessing();
+            resistorsThroughHoleDataProcessing();
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
@@ -47,57 +44,18 @@ public class ICkala {
             ObjectInputStream ois = new ObjectInputStream(fis);
             String[] productNames = (String[]) ois.readObject();
             ois.close();
-            PrintWriter pw = new PrintWriter(new File("commonCap.csv"));
-            PrintWriter pw2 = new PrintWriter(new File("Capacitors_Ceramic_Capacitors.csv"));
+            PrintWriter pw = new PrintWriter(new File("Capacitors_Ceramic_CapacitorsName.csv"));
             StringBuilder sb = new StringBuilder();
-            StringBuilder sb2 = new StringBuilder();
             System.out.println(productNames.length);
             for(int i=1;i< productNames.length;i++) {
                 System.out.println(productNames[i]);
                 if(productNames[i] != null) {
-                    sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");
-                    sb.append(getdecodeCName(productNames[i],"cap"));sb.append(",");sb.append("0");sb.append(",");sb.append("0");sb.append(","); // name,  quantity available, (price)(buy),
-                    sb.append("Samsung Electronics");sb.append(","); //manufacturer
-                    sb.append("CAP CER"+ getdecodeCName(productNames[i],"cap") +" "+getdecodeCName(productNames[i],"voltage")+" X7R "+getdecodeCName(productNames[i],"package"));sb.append(","); // , description,
-                    sb.append("Cut Tape (CT)");sb.append(",");sb.append(" - ");sb.append(","); // packing series
-                    sb.append("Active");sb.append(","); //  part Status
-                    sb.append("50");sb.append(","); // minimum quantity
-                    sb.append("236");sb.append(","); // Category
-                    sb.append(Integer.toString(i+1));sb.append(","); // row number in category
+                    sb.append(getdecodeCName(productNames[i],"cap"));sb.append(",");sb.append(productNames[i]);
                     sb.append('\n');
-                    sb2.append(getdecodeCName(productNames[i],"cap"));sb2.append(","); // Capacity
-                    sb2.append("10%");sb2.append(","); // Tolerance
-                    sb2.append(getdecodeCName(productNames[i],"voltage"));sb2.append(","); // Voltage - Rated
-                    sb2.append("X7R");sb2.append(","); // Temperature Coefficient
-                    sb2.append("-55°C ~ 100°C");sb2.append(","); // Operating Temperature
-                    sb2.append(" - ");sb2.append(","); // Features
-                    sb2.append(" - ");sb2.append(","); // Ratings
-                    sb2.append("General Purpose");sb2.append(","); // Applications
-                    sb2.append(" - ");sb2.append(","); // Failure Rate
-                    sb2.append("Surface Mount, MLCC");sb2.append(","); // Mounting Type
-                    sb2.append(getdecodeCName(productNames[i],"package"));sb2.append(","); // Package / Case
-                    if(getdecodeCName(productNames[i],"package").equals("0402")) {
-                        sb2.append("0.039 L x 0.020 W (1.00mm x 0.50mm)");sb2.append(","); // Size / Dimension
-                    } else if(getdecodeCName(productNames[i],"package").equals("0603")) {
-                        sb2.append("0.064 L x 0.035 W (1.63mm x 0.89mm)");sb2.append(","); // Size / Dimension
-                    } else if(getdecodeCName(productNames[i],"package").equals("0805")) {
-                        sb2.append("0.079 L x 0.049 W (2.00mm x 1.25mm)");sb2.append(","); // Size / Dimension
-                    } else if(getdecodeCName(productNames[i],"package").equals("1206")) {
-                        sb2.append("0.126 L x 0.063 W (3.20mm x 1.60mm)");sb2.append(","); // Size / Dimension
-                    } else if(getdecodeCName(productNames[i],"package").equals("1210")) {
-                        sb2.append("0.126 L x 0.098 W (3.20mm x 2.50mm)");sb2.append(","); // Size / Dimension
-                    }
-                    sb2.append(" - ");sb2.append(","); // Height - Seated (Max)
-                    sb2.append(" - ");sb2.append(","); // Thickness (Max)
-                    sb2.append(" - ");sb2.append(","); // Lead Spacing
-                    sb2.append(" - ");sb2.append(","); // Lead Style
-                    sb2.append('\n');
                 }
             }
             pw.write(sb.toString());
             pw.close();
-            pw2.write(sb2.toString());
-            pw2.close();
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
@@ -137,11 +95,11 @@ public class ICkala {
                 System.out.println(i+" : " + productNames[i]);
             }
             try {
-              // store All Data
-              FileOutputStream partNameFile = new FileOutputStream("ICKala_Capacitors_Ceramic.json");
-              ObjectOutputStream oosFound = new ObjectOutputStream(partNameFile);
-              oosFound.writeObject(productNames);
-              oosFound.close();
+                // store All Data
+                FileOutputStream partNameFile = new FileOutputStream("ICKala_Capacitors_Ceramic.json");
+                ObjectOutputStream oosFound = new ObjectOutputStream(partNameFile);
+                oosFound.writeObject(productNames);
+                oosFound.close();
             } catch (Exception e) {
                 System.err.print(e.getMessage());
             }
@@ -178,13 +136,13 @@ public class ICkala {
         } else if(cap.contains(".") && cap.length()==3) {
             cap = cap.replace(".","")+"5K";
         } else if(cap.length()==1) {
-           cap = cap+"05K";
+            cap = cap+"05K";
         } else if(cap.length()==2) {
             cap = cap+"6K";
         } else if(cap.length()==3) {
             cap = cap.replace("0","")+"7K";
         }
-        System.out.println("cap:"+cap);
+//        System.out.println("cap:"+cap);
         String V = "0"+getdecodeCName(name,"voltage").replace("V","");
         if( V.equals("06.3") ) { V = "006"; cap = cap.replace("K","M"); }
         if( V.equals("02.5") ) { V = "002";  }
@@ -202,47 +160,20 @@ public class ICkala {
             ObjectInputStream ois = new ObjectInputStream(fis);
             String[] productNames = (String[]) ois.readObject();
             ois.close();
-            PrintWriter pw = new PrintWriter(new File("commonCapTANTALUM.csv"));
-            PrintWriter pw2 = new PrintWriter(new File("Capacitors_Tantalum_Capacitors.csv"));
+            PrintWriter pw = new PrintWriter(new File("commonCapTANTALUMName.csv"));
             StringBuilder sb = new StringBuilder();
-            StringBuilder sb2 = new StringBuilder();
             System.out.println(productNames.length);
             for(int i=0;i< productNames.length;i++) {
                 System.out.println(productNames[i]);
                 System.out.println(makeCapacitorsTantalumName(productNames[i]));
                 if(productNames[i] != null) {
-                    sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");
-                    sb.append(makeCapacitorsTantalumName(productNames[i]));sb.append(",");sb.append("0");sb.append(",");sb.append("0");sb.append(","); // name,  quantity available, (price)(buy),
-                    sb.append("AVX Corporation");sb.append(","); //manufacturer
-                    sb.append("CAP TANT "+ getdecodeCName(productNames[i],"cap") +" 20% "+getdecodeCName(productNames[i],"voltage")+"  "+getdecodeCName(productNames[i],"packageT"));sb.append(","); // , description,
-                    sb.append("Cut Tape (CT)");sb.append(",");sb.append("TAJ");sb.append(","); // packing series
-                    sb.append("Active");sb.append(","); //  part Status
-                    sb.append("10");sb.append(","); // minimum quantity
-                    sb.append("232");sb.append(","); // Category
-                    sb.append(Integer.toString(i+1));sb.append(","); // row number in category
+                    sb.append(makeCapacitorsTantalumName(productNames[i]));sb.append(",");sb.append(productNames[i]);
                     sb.append('\n');
-                    sb2.append(getdecodeCName(productNames[i],"cap"));sb2.append(","); // Capacity
-                    sb2.append("20%");sb2.append(","); // Tolerance
-                    sb2.append(getdecodeCName(productNames[i],"voltage"));sb2.append(","); // Voltage - Rated
-                    sb2.append("Molded");sb2.append(","); // Type
-                    sb2.append("-");sb2.append(","); // ESR (Equivalent Series Resistance)
-                    sb2.append("-55°C ~ 125°C");sb2.append(","); // Operating Temperature
-                    sb2.append("Surface Mount");sb2.append(","); // Mounting Type
-                    sb2.append("-");sb2.append(","); // Package / Case
-                    sb2.append("-");sb2.append(","); // Size / Dimension
-                    sb2.append(" - ");sb2.append(","); // Height - Seated (Max)
-                    sb2.append(" - ");sb2.append(","); // Lead Spacing
-                    sb2.append(getdecodeCName(productNames[i],"packageT"));sb2.append(","); // Manufacturer Size Code
-                    sb2.append("-");sb2.append(","); // Ratings
-                    sb2.append("General Purpose");sb2.append(","); // features
-                    sb2.append(" - ");sb2.append(","); // Failure Rate
-                    sb2.append('\n');
+
                 }
             }
             pw.write(sb.toString());
             pw.close();
-            pw2.write(sb2.toString());
-            pw2.close();
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
@@ -279,48 +210,18 @@ public class ICkala {
             String[] productNames = (String[]) ois.readObject();
             ois.close();
             PrintWriter pw = new PrintWriter(new File("commonCapAluminiumElectrolyticSMD.csv"));
-            PrintWriter pw2 = new PrintWriter(new File("Capacitors_AluminiumElectrolyticSMD_Capacitors.csv"));
             StringBuilder sb = new StringBuilder();
-            StringBuilder sb2 = new StringBuilder();
             System.out.println(productNames.length);
             for(int i=1;i< productNames.length;i++) {
                 System.out.println(productNames[i]);
                 if(productNames[i] != null) {
-                    sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");
-                    sb.append(getdecodeCName(productNames[i],"cap"));sb.append(",");sb.append("0");sb.append(",");sb.append("0");sb.append(","); // name,  quantity available, (price)(buy),
-                    sb.append("Semtech Electronics");sb.append(","); //manufacturer
-                    sb.append("CAP ALUM "+ getdecodeCName(productNames[i],"cap") +" "+getdecodeCName(productNames[i],"voltage")+" 20% SMD");sb.append(","); // , description,
-                    sb.append("Cut Tape (CT)");sb.append(",");sb.append(" - ");sb.append(","); // packing series
-                    sb.append("Active");sb.append(","); //  part Status
-                    sb.append("10");sb.append(","); // minimum quantity
-                    sb.append("8");sb.append(","); // Category
-                    sb.append(Integer.toString(i+1));sb.append(","); // row number in category
+                    sb.append(getdecodeCName(productNames[i],"cap"));sb.append(",");sb.append(productNames[i]);
                     sb.append('\n');
-                    sb2.append(getdecodeCName(productNames[i],"cap"));sb2.append(","); // Capacity
-                    sb2.append("20%");sb2.append(","); // Tolerance
-                    sb2.append(getdecodeCName(productNames[i],"voltage"));sb2.append(","); // Voltage - Rated
-                    sb2.append("-");sb2.append(","); // ESR (Equivalent Series Resistance)
-                    sb2.append("-");sb2.append(","); // Lifetime @ Temp
-                    sb2.append("-55°C ~ 100°C");sb2.append(","); // Operating Temperature
-                    sb2.append("Polar");sb2.append(","); // Polarization
-                    sb2.append("-");sb2.append(","); // Ratings
-                    sb2.append("General Purpose");sb2.append(","); // Applications
-                    sb2.append("-");sb2.append(","); // Ripple Current @ Low Frequency
-                    sb2.append("-");sb2.append(","); // Ripple Current @ High Frequency
-                    sb2.append("-");sb2.append(","); // Impedance
-                    sb2.append("-");sb2.append(","); // Lead Spacing
-                    sb2.append("-");sb2.append(","); // Size / Dimension
-                    sb2.append("-");sb2.append(","); // Height - Seated (Max)
-                    sb2.append("-");sb2.append(","); // Surface Mount Land Size
-                    sb2.append("Surface Mount");sb2.append(","); // Mounting Type
-                    sb2.append("Radial, Can - SMD");sb2.append(","); // Package / Case
-                    sb2.append('\n');
+
                 }
             }
             pw.write(sb.toString());
             pw.close();
-            pw2.write(sb2.toString());
-            pw2.close();
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
@@ -356,49 +257,18 @@ public class ICkala {
             ObjectInputStream ois = new ObjectInputStream(fis);
             String[] productNames = (String[]) ois.readObject();
             ois.close();
-            PrintWriter pw = new PrintWriter(new File("commonCapAluminiumElectrolyticRADIAL.csv"));
-            PrintWriter pw2 = new PrintWriter(new File("Capacitors_AluminiumElectrolyticRADIAL_Capacitors.csv"));
+            PrintWriter pw = new PrintWriter(new File("commonCapAluminiumElectrolyticRADIALName.csv"));
             StringBuilder sb = new StringBuilder();
-            StringBuilder sb2 = new StringBuilder();
             System.out.println(productNames.length);
             for(int i=1;i< productNames.length;i++) {
                 System.out.println(productNames[i]);
                 if(productNames[i] != null) {
-                    sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");
-                    sb.append(getdecodeCName(productNames[i],"cap"));sb.append(",");sb.append("0");sb.append(",");sb.append("0");sb.append(","); // name,  quantity available, (price)(buy),
-                    sb.append("CHENG ");sb.append(","); //manufacturer
-                    sb.append("CAP ALUM "+ getdecodeCName(productNames[i],"cap") +" "+getdecodeCName(productNames[i],"voltage")+" 20% RADIAL");sb.append(","); // , description,
-                    sb.append("Cut Tape (CT)");sb.append(",");sb.append(" - ");sb.append(","); // packing series
-                    sb.append("Active");sb.append(","); //  part Status
-                    sb.append("10");sb.append(","); // minimum quantity
-                    sb.append("8");sb.append(","); // Category
-                    sb.append(Integer.toString(i+1));sb.append(","); // row number in category
+                    sb.append(getdecodeCName(productNames[i],"cap"));sb.append(",");sb.append(productNames[i]);
                     sb.append('\n');
-                    sb2.append(getdecodeCName(productNames[i],"cap"));sb2.append(","); // Capacity
-                    sb2.append("20%");sb2.append(","); // Tolerance
-                    sb2.append(getdecodeCName(productNames[i],"voltage"));sb2.append(","); // Voltage - Rated
-                    sb2.append("-");sb2.append(","); // ESR (Equivalent Series Resistance)
-                    sb2.append("-");sb2.append(","); // Lifetime @ Temp
-                    sb2.append("-55°C ~ 100°C");sb2.append(","); // Operating Temperature
-                    sb2.append("Polar");sb2.append(","); // Polarization
-                    sb2.append("-");sb2.append(","); // Ratings
-                    sb2.append("General Purpose");sb2.append(","); // Applications
-                    sb2.append("-");sb2.append(","); // Ripple Current @ Low Frequency
-                    sb2.append("-");sb2.append(","); // Ripple Current @ High Frequency
-                    sb2.append("-");sb2.append(","); // Impedance
-                    sb2.append("-");sb2.append(","); // Lead Spacing
-                    sb2.append("-");sb2.append(","); // Size / Dimension
-                    sb2.append("-");sb2.append(","); // Height - Seated (Max)
-                    sb2.append("-");sb2.append(","); // Surface Mount Land Size
-                    sb2.append("Surface Mount");sb2.append(","); // Mounting Type
-                    sb2.append("Radial, Can");sb2.append(","); // Package / Case
-                    sb2.append('\n');
                 }
             }
             pw.write(sb.toString());
             pw.close();
-            pw2.write(sb2.toString());
-            pw2.close();
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
@@ -434,44 +304,18 @@ public class ICkala {
             ObjectInputStream ois = new ObjectInputStream(fis);
             String[] productNames = (String[]) ois.readObject();
             ois.close();
-            PrintWriter pw = new PrintWriter(new File("commonResistorsSurfaceMount.csv"));
-            PrintWriter pw2 = new PrintWriter(new File("Resistors_SurfaceMount.csv"));
+            PrintWriter pw = new PrintWriter(new File("commonResistorsSurfaceMountName.csv"));
             StringBuilder sb = new StringBuilder();
-            StringBuilder sb2 = new StringBuilder();
             System.out.println(productNames.length);
             for(int i=0;i< 1440;i++) {
                 System.out.println(productNames[i]);
                 if(productNames[i] != null) {
-                    sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");
-                    sb.append("R"+getdecodeRName(productNames[i],"res"));sb.append(",");sb.append("0");sb.append(",");sb.append("0");sb.append(","); // name,  quantity available, (price)(buy),
-                    sb.append("Hottech Industrial Co ");sb.append(","); //manufacturer
-                    sb.append("RES SMD "+ getdecodeRName(productNames[i],"res") +" OHM "+getdecodeRName(productNames[i],"tolerance")+" "+getdecodeRName(productNames[i],"power")+" "+getdecodeRName(productNames[i],"package"));sb.append(","); // , description,
-                    sb.append("Tape & Reel (TR)");sb.append(",");sb.append("-");sb.append(","); // packing series
-                    sb.append("Active");sb.append(","); //  part Status
-                    sb.append("50");sb.append(","); // minimum quantity
-                    sb.append("204");sb.append(","); // Category
-                    sb.append(Integer.toString(i+1));sb.append(","); // row number in category
+                    sb.append("R"+getdecodeRName(productNames[i],"res"));sb.append(",");sb.append(productNames[i]);
                     sb.append('\n');
-                    sb2.append(getdecodeRName(productNames[i],"res")+"Ohms");sb2.append(","); // Resistors value
-                    sb2.append(getdecodeRName(productNames[i],"tolerance"));sb2.append(","); // Tolerance
-                    sb2.append(getdecodeRName(productNames[i],"power"));sb2.append(","); // Power
-                    sb2.append("Thick Film");sb2.append(","); // Composition
-                    sb2.append("Automotive AEC-Q200");sb2.append(","); // Features
-                    sb2.append("-");sb2.append(","); // Temperature Coefficient
-                    sb2.append("-20°C ~ 125°C");sb2.append(","); // Operating Temperature
-                    sb2.append(getdecodeRName(productNames[i],"packageCase"));sb2.append(","); // Package / Case
-                    sb2.append(getdecodeRName(productNames[i],"package"));sb2.append(","); // Supplier Device Package
-                    sb2.append(getdecodeRName(productNames[i],"sizeDimension"));sb2.append(","); // Size / Dimension
-                    sb2.append("-");sb2.append(","); // Height - Seated (Max)
-                    sb2.append("2");sb2.append(","); // Number of Terminations
-                    sb2.append("-");sb2.append(","); // Failure Rate
-                    sb2.append('\n');
                 }
             }
             pw.write(sb.toString());
             pw.close();
-            pw2.write(sb2.toString());
-            pw2.close();
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
@@ -658,45 +502,17 @@ public class ICkala {
             String[] productNames = (String[]) ois.readObject();
             ois.close();
             PrintWriter pw = new PrintWriter(new File("commonResistorThroughHole.csv"));
-            PrintWriter pw2 = new PrintWriter(new File("Resistors_ThroughHole.csv"));
             StringBuilder sb = new StringBuilder();
-            StringBuilder sb2 = new StringBuilder();
             System.out.println(productNames.length);
             for(int i=0;i< productNames.length;i++) {
                 System.out.println(i+" : " +productNames[i]);
-//                System.out.println("tolerance : "+getdecodeRDipName(productNames[i],"tolerance"));
-                // remove militery resistors
                 if(productNames[i] != null && (!productNames[i].contains("RN70"))) {
-                    sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");sb.append(" *");sb.append(",");
-                    sb.append(getdecodeRDipName(productNames[i], "name"));sb.append(",");sb.append("0");sb.append(",");sb.append("0");sb.append(","); // name,  quantity available, (price)(buy),
-                    sb.append("Zenithsun Electronics Tech");sb.append(","); //manufacturer
-                    sb.append("RES "+ getdecodeRDipName(productNames[i],"res") +" OHM "+getdecodeRDipName(productNames[i],"powerKasri")+" "+getdecodeRDipName(productNames[i],"tolerance")+" AXIAL");sb.append(","); // , description,
-                    sb.append("Cut Tape (CT)");sb.append(",");sb.append("CF");sb.append(","); // packing series
-                    sb.append("Active");sb.append(","); //  part Status
-                    sb.append("100");sb.append(","); // minimum quantity
-                    sb.append("206");sb.append(","); // Category
-                    sb.append(Integer.toString(i+1));sb.append(","); // row number in category
+                    sb.append(getdecodeRDipName(productNames[i], "name"));sb.append(",");sb.append(productNames[i]);
                     sb.append('\n');
-                    sb2.append(getdecodeRDipName(productNames[i],"res")+"Ohms");sb2.append(","); // Resistors value
-                    sb2.append(getdecodeRDipName(productNames[i],"tolerance"));sb2.append(","); // Tolerance
-                    sb2.append(getdecodeRDipName(productNames[i],"power"));sb2.append(","); // Power
-                    sb2.append("Carbon Film");sb2.append(","); // Composition
-                    sb2.append("Flame Retardant Coating, Safety");sb2.append(","); // Features
-                    sb2.append("0/ -400ppm/°C");sb2.append(","); // Temperature Coefficient
-                    sb2.append("-20°C ~ 125°C");sb2.append(","); // Operating Temperature
-                    sb2.append("Axial");sb2.append(","); // Package / Case
-                    sb2.append("Axial");sb2.append(","); // Supplier Device Package
-                    sb2.append(getdecodeRDipName(productNames[i],"sizeDimension"));sb2.append(","); // Size / Dimension
-                    sb2.append("-");sb2.append(","); // Height - Seated (Max)
-                    sb2.append("2");sb2.append(","); // Number of Terminations
-                    sb2.append("-");sb2.append(","); // Failure Rate
-                    sb2.append('\n');
                 }
             }
             pw.write(sb.toString());
             pw.close();
-            pw2.write(sb2.toString());
-            pw2.close();
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
