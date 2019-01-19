@@ -21,4 +21,5 @@ public class GlobalData {
     public static final String ICKala_RESISTORS_SURFACEMOUNT = BASE_ADRESS + "FILES\\ICKala\\ICKala_Resistors_SurfaceMount.json";
     public static final String ICKala_RESISTORS_THROUGHHOLE = BASE_ADRESS + "FILES\\ICKala\\ICKala_Resistors_DIPThrough.json";
 
+    public static final String Categories_Features = BASE_ADRESS + "FILES\\categoriesConversionId.json";
 }
