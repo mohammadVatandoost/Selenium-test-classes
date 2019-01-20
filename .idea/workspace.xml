@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40cf7892-f39b-4880-9b2b-8c3383e2e923" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DigiKeyToEtrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DigiKeyToEtrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GlobalData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GlobalData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DigiKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DigiKey.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GlobalData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GlobalData.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,7 +45,7 @@
     <session id="-399042899">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="25" />
+          <entry key="project.closed" value="26" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="6" />
           <entry key="project.open.time.11" value="9" />
@@ -66,13 +61,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="7396" />
+          <entry key="java" value="7421" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="7396" />
+          <entry key="JAVA" value="7421" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
@@ -96,7 +91,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/DigiKeyToEtrix.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
-              <caret line="56" column="21" lean-forward="true" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
+              <caret line="45" column="5" lean-forward="true" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
               <folding>
                 <element signature="e#0#5768#0" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -260,7 +255,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547912075223" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547912644615" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -371,16 +366,15 @@
       <workItem from="1546413118209" duration="812000" />
       <workItem from="1546730274453" duration="898000" />
       <workItem from="1547019221662" duration="2295000" />
-      <workItem from="1547901923468" duration="7755000" />
+      <workItem from="1547901923468" duration="8325000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="216623000" />
+    <option name="totallyTimeSpent" value="217193000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4989429" visible="true" weight="0.26107383" />
       <window_info id="Structure" order="1" sideWeight="0.5010571" side_tool="true" weight="0.23154363" />
@@ -391,7 +385,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33049646" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33049646" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -650,7 +644,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/DigiKeyToEtrix.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
-          <caret line="56" column="21" lean-forward="true" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
+          <caret line="45" column="5" lean-forward="true" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
           <folding>
             <element signature="e#0#5768#0" expanded="true" />
             <element signature="imports" expanded="true" />

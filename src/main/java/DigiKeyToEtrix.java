@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -44,7 +45,7 @@ public class DigiKeyToEtrix {
 //        getFromDigikey(urls[0]);
     }
 
-     static void findCategoryFeatures(ArrayList<String> categories) {
+     static JSONObject findCategoryFeatures(ArrayList<String> categories) {
         JSONArray categoriesJsonArray = catergoriesJsonFormat.getJSONArray("categories");
         for (int i = 0; i < categoriesJsonArray.length(); i++) {
             JSONObject explrObject = categoriesJsonArray.getJSONObject(i);
@@ -59,9 +60,11 @@ public class DigiKeyToEtrix {
                 }
                 if(equality) {
                     System.out.println("founded");
+                    return explrObject;
                 }
             }
         }
+        return null;
     }
 
      static String readFile(String path, Charset encoding)
