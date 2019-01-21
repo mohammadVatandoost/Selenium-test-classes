@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40cf7892-f39b-4880-9b2b-8c3383e2e923" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DigiKeyToEtrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DigiKeyToEtrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DigiKeyToEtrix.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DigiKeyToEtrix.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,37 +51,37 @@
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="6" />
           <entry key="project.open.time.11" value="9" />
-          <entry key="project.open.time.12" value="8" />
+          <entry key="project.open.time.12" value="10" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.15" value="2" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="32" />
+          <entry key="project.opened" value="34" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="7421" />
+          <entry key="java" value="8578" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="7421" />
+          <entry key="JAVA" value="8578" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="38" />
+          <entry key="java" value="39" />
           <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="38" />
+          <entry key="JAVA" value="39" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
@@ -90,14 +92,21 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/DigiKeyToEtrix.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="45" column="5" lean-forward="true" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+            <state relative-caret-position="158">
+              <caret line="193" column="77" selection-start-line="193" selection-start-column="77" selection-end-line="193" selection-end-column="77" />
               <folding>
-                <element signature="e#0#5768#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#995#1003#0" expanded="true" />
-                <element signature="e#1686#1694#0" expanded="true" />
+                <element signature="method#readFile#0;class#DigiKeyToEtrix#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/DigikeyDescProduct.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1156">
+              <caret line="75" column="8" selection-start-line="75" selection-start-column="8" selection-end-line="80" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -105,7 +114,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
+            <state relative-caret-position="459">
               <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
             </state>
           </provider>
@@ -123,7 +132,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/DigiKeyDownloadFile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
+            <state relative-caret-position="816">
               <caret line="63" column="9" selection-start-line="63" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
               <folding>
                 <element signature="method#downloadUsingChrome#0;class#DigiKeyDownloadFile#0" />
@@ -138,7 +147,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/NameConversion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
+            <state relative-caret-position="1428">
               <caret line="511" column="17" selection-start-line="511" selection-start-column="17" selection-end-line="511" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -187,7 +196,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/DigiKeyDownloadFile.java" />
-        <option value="$PROJECT_DIR$/src/main/java/DigikeyDescProduct.java" />
         <option value="$PROJECT_DIR$/src/main/java/AllFileToOne.java" />
         <option value="$PROJECT_DIR$/src/main/java/DigikeyDataProcessing.java" />
         <option value="$PROJECT_DIR$/src/main/java/ICkala.java" />
@@ -197,6 +205,7 @@
         <option value="$PROJECT_DIR$/src/main/java/GlobalData.java" />
         <option value="$PROJECT_DIR$/src/main/java/GlobalData.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/DigikeyDescProduct.java" />
         <option value="$PROJECT_DIR$/src/main/java/DigiKeyToEtrix.java" />
       </list>
     </option>
@@ -219,6 +228,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -248,14 +259,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547912644615" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548082288104" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -367,16 +376,19 @@
       <workItem from="1546730274453" duration="898000" />
       <workItem from="1547019221662" duration="2295000" />
       <workItem from="1547901923468" duration="8325000" />
+      <workItem from="1548054090527" duration="4618000" />
+      <workItem from="1548079399765" duration="2885000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="217193000" />
+    <option name="totallyTimeSpent" value="224696000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4989429" visible="true" weight="0.26107383" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4989429" visible="true" weight="0.26912752" />
       <window_info id="Structure" order="1" sideWeight="0.5010571" side_tool="true" weight="0.23154363" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -385,7 +397,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.33049646" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33049646" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -513,13 +525,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/DigikeyDescProduct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="82" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/JavanElec.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -538,25 +543,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="128" column="60" lean-forward="true" selection-start-line="128" selection-start-column="60" selection-end-line="128" selection-end-column="60" />
-          <folding>
-            <element signature="method#ceramicCapacitorsDataProcessing#0;class#ICkala#0" />
-            <element signature="method#getdecodeCName#0;class#ICkala#0" />
-            <element signature="method#getCapacitorsCeramic#0;class#ICkala#0" />
-            <element signature="method#getCapacitorsTantalum#0;class#ICkala#0" />
-            <element signature="method#makeCapacitorsTantalumName#0;class#ICkala#0" />
-            <element signature="method#tantalumCapacitorsDataProcessing#0;class#ICkala#0" />
-            <element signature="method#getCapacitorsAluminiumElectrolyticSMD#0;class#ICkala#0" />
-            <element signature="method#aluminiumElectrolyticSMDDataProcessing#0;class#ICkala#0" />
-            <element signature="method#getCapacitorsAluminiumElectrolyticRADIAL#0;class#ICkala#0" />
-            <element signature="method#aluminiumElectrolyticRADIALDataProcessing#0;class#ICkala#0" />
-            <element signature="method#getResistorsSurfaceMount#0;class#ICkala#0" />
-            <element signature="method#resistorsSurfaceMountDataProcessing#0;class#ICkala#0" />
-            <element signature="method#getdecodeRName#0;class#ICkala#0" />
-            <element signature="method#getResistorsDipThrough#0;class#ICkala#0" />
-            <element signature="method#getdecodeRDipName#0;class#ICkala#0" />
-            <element signature="method#resistorsThroughHoleDataProcessing#0;class#ICkala#0" />
-            <element signature="method#getResistorsDipThrough5W#0;class#ICkala#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -588,9 +574,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/DigiKeyToEtrix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="193" column="77" selection-start-line="193" selection-start-column="77" selection-end-line="193" selection-end-column="77" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#readFile#0;class#DigiKeyToEtrix#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/DigikeyDescProduct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1156">
+          <caret line="75" column="8" selection-start-line="75" selection-start-column="8" selection-end-line="80" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/GlobalData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="97" selection-start-line="23" selection-start-column="97" selection-end-line="23" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/DigiKeyDownloadFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="63" column="9" selection-start-line="63" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
+          <folding>
+            <element signature="method#downloadUsingChrome#0;class#DigiKeyDownloadFile#0" />
+            <element signature="method#downloadUsingHTTP#0;class#DigiKeyDownloadFile#0" />
+            <element signature="method#downloadUsingNIO#0;class#DigiKeyDownloadFile#0" />
+            <element signature="method#downloadUsingStream#0;class#DigiKeyDownloadFile#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/NameConversion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
+        <state relative-caret-position="1428">
           <caret line="511" column="17" selection-start-line="511" selection-start-column="17" selection-end-line="511" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -610,46 +641,6 @@
             <element signature="method#getResistorsDipThrough#0;class#NameConversion#0" />
             <element signature="method#getdecodeRDipName#0;class#NameConversion#0" />
             <element signature="method#getResistorsDipThrough5W#0;class#NameConversion#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/DigiKeyDownloadFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="63" column="9" selection-start-line="63" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
-          <folding>
-            <element signature="method#downloadUsingChrome#0;class#DigiKeyDownloadFile#0" />
-            <element signature="method#downloadUsingHTTP#0;class#DigiKeyDownloadFile#0" />
-            <element signature="method#downloadUsingNIO#0;class#DigiKeyDownloadFile#0" />
-            <element signature="method#downloadUsingStream#0;class#DigiKeyDownloadFile#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/GlobalData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="97" selection-start-line="23" selection-start-column="97" selection-end-line="23" selection-end-column="97" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/DigiKeyToEtrix.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="45" column="5" lean-forward="true" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#5768#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#995#1003#0" expanded="true" />
-            <element signature="e#1686#1694#0" expanded="true" />
           </folding>
         </state>
       </provider>
