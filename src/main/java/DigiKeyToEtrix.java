@@ -2,7 +2,9 @@
 //import org.json.simple.JSONObject;
 import com.google.gson.JsonArray;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
@@ -13,7 +15,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import sun.net.www.http.HttpClient;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -32,7 +33,9 @@ public class DigiKeyToEtrix {
     public static JSONObject catergoriesJsonFormat;
 
     public static void main(String[] args) {
-        String[] urls = {"https://www.digikey.com/product-detail/en/maxim-integrated/MAX2607EUT-T/MAX2607EUT-TTR-ND/1938023"};
+        String[] urls = {"https://www.digikey.com/product-detail/en/maxim-integrated/MAX2607EUT-T/MAX2607EUT-TTR-ND/1938023",
+          "https://www.digikey.com/products/en?keywords=ATMEGA128L-8AI"
+        };
         try {
             ArrayList<String> testArrayList = new ArrayList<String>();
             testArrayList.add("RF_IF_and_RFID");testArrayList.add("RF");testArrayList.add("Power_Dividers_Splitters");
@@ -44,7 +47,7 @@ public class DigiKeyToEtrix {
 //            System.out.println(temp.toString());
 //            String[][] partNameFile = (JSONArray) ois.readObject();
 //            ois.close();
-            getFromDigikey(urls[0]);
+            getFromDigikey(urls[1]);
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
@@ -124,6 +127,7 @@ public class DigiKeyToEtrix {
                 }
                 categories.add(ele.getText().replaceAll("/","_").replaceAll(" ","_"));
             }
+            category = category.replace("_-_","_").replace("(","").replace(")","");
             JSONObject commonsJSON = new JSONObject();
             JSONObject seperateJSON = new JSONObject();
             JSONObject sendJSON = new JSONObject();
@@ -195,7 +199,7 @@ public class DigiKeyToEtrix {
                                String normalizeText = tableRow.get(t).getText();
                                String columnNameNormalize = splitUpperCaseFirstCharJoin((String) categoryColumns.get(k), "_", " ") + " ";
                                System.out.println( "columnNameNormalize : " + columnNameNormalize);
-                               if(normalizeText.contains(columnNameNormalize)) {
+                               if(normalizeText.toLowerCase().contains(columnNameNormalize.toLowerCase())) {
                                    System.out.println( "Add to Json : " + (String) categoryColumns.get(k)+" : "+normalizeText.replace(columnNameNormalize,""));
                                    seperateJSON.put((String) categoryColumns.get(k),normalizeText.replace(columnNameNormalize,""));
                                }
@@ -205,9 +209,9 @@ public class DigiKeyToEtrix {
                     temp[t+1] = tableRow.get(t).getText();
                 }
                 sendJSON.put("commons",commonsJSON);
-                sendJSON.put("seperate",seperateJSON);
+                sendJSON.put("separate",seperateJSON);
                 System.out.println("JSON to String: "+ sendJSON.toString());
-                String url = "";
+                String url = "http://etrix.ir/api/add-parts";
                 sendJSON(url, sendJSON.toString());
             } else  {
                 System.out.println("category does not found: "+ category);
@@ -220,6 +224,24 @@ public class DigiKeyToEtrix {
     }
 
     public static void sendJSON(String urlRequest, String message) {
+        String payload = message;
+        StringEntity entity = new StringEntity(payload,
+                ContentType.APPLICATION_FORM_URLENCODED);
+
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpPost request = new HttpPost(urlRequest);
+        request.setEntity(entity);
+        try {
+            HttpResponse response = httpClient.execute(request);
+            System.out.println(response.getStatusLine().getStatusCode());
+        }catch (Exception ex) {
+
+            //handle exception here
+
+        } finally {
+            //Deprecated
+            //httpClient.getConnectionManager().shutdown();
+        }
         //Deprecated
 //HttpClient httpClient = new DefaultHttpClient();
 
