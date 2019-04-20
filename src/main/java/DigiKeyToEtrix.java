@@ -11,21 +11,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class DigiKeyToEtrix {
@@ -33,21 +30,33 @@ public class DigiKeyToEtrix {
     public static JSONObject catergoriesJsonFormat;
 
     public static void main(String[] args) {
-        String[] urls = {"https://www.digikey.com/product-detail/en/maxim-integrated/MAX2607EUT-T/MAX2607EUT-TTR-ND/1938023",
-          "https://www.digikey.com/products/en?keywords=ATMEGA128L-8AI"
-        };
+//        String[] urls = {"https://www.digikey.com/product-detail/en/maxim-integrated/MAX2607EUT-T/MAX2607EUT-TTR-ND/1938023",
+//          "https://www.digikey.com/products/en?keywords=ATMEGA128L-8AI"
+//        };
+//        String[][] urls = readCSVtoArrayList(GlobalData.Product_NOT_Found_IN_Digikey);
         try {
-            ArrayList<String> testArrayList = new ArrayList<String>();
-            testArrayList.add("RF_IF_and_RFID");testArrayList.add("RF");testArrayList.add("Power_Dividers_Splitters");
+//            ArrayList<String> testArrayList = new ArrayList<String>();
+//            testArrayList.add("RF_IF_and_RFID");testArrayList.add("RF");testArrayList.add("Power_Dividers_Splitters");
             String content = readFile(GlobalData.Categories_Features, StandardCharsets.UTF_8);
             catergoriesJsonFormat = new JSONObject(content);
+
+            String productsNotFound = readFile(GlobalData.Product_NOT_Found_IN_Digikey, StandardCharsets.UTF_8);
+            System.out.println(productsNotFound);
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject;
+            System.out.println("***************");
+            jsonObject = (JSONObject) parser.parse(productsNotFound);
+
+//            System.out.println(jsonObject.toString());
+//            JSONObject products  = new JSONObject(productsNotFound);
+
 //            findCategoryFeatures(testArrayList);
 //            temp.put("categories",JSONcontent);
 //            JSONArray categories = (JSONArray)temp.get("categories");
-//            System.out.println(temp.toString());
+
 //            String[][] partNameFile = (JSONArray) ois.readObject();
 //            ois.close();
-            getFromDigikey(urls[1]);
+//            getFromDigikey(urls[1]);
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
@@ -295,5 +304,50 @@ public class DigiKeyToEtrix {
 
         }
         return datasheet;
+    }
+
+    public static String[][] readCSVtoArrayList(String fileName) {
+        File file= new File(fileName);
+        String[][] csvArray ;
+        // this gives you a 2-dimensional array of strings
+        List<List<String>> lines = new ArrayList<List<String>>();
+        Scanner inputStream;
+
+        try{
+            inputStream = new Scanner(file);
+            int counter = 0 ;
+            while(inputStream.hasNext()){
+                String line= inputStream.next();
+                System.out.println("line : " + line );
+                String[] values = line.split(";");
+                List<String> temp = new ArrayList<String>();
+//                System.out.println("values.length : " + values.length );
+//                for (int i=0; i<values.length ; i++ ) {
+//                    System.out.println("Line " + counter + " Column " + i + ": " + values[i]);
+//                }
+                // this adds the currently parsed line to the 2-dimensional string array
+                lines.add(Arrays.asList(values));
+                counter++;
+            }
+
+            inputStream.close();
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        csvArray = new String[lines.size()][];
+        // the following code lets you iterate through the 2-dimensional array
+        int lineNo = 1;
+        for(List<String> line: lines) {
+            int columnNo = 1;
+            csvArray[lineNo-1] = new String[line.size()];
+            for (String value: line) {
+//                System.out.println("Line " + lineNo + " Column " + columnNo + ": " + value);
+                csvArray[lineNo-1][columnNo-1] = value;
+                columnNo++;
+            }
+            lineNo++;
+        }
+
+        return csvArray;
     }
 }
